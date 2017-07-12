@@ -1,7 +1,7 @@
-.PHONY: ci composer cs validate-cs phpunit phpunit-coverage
+.PHONY: ci composer cs validate-cs phpunit phpunit-coverage phpstan
 
-dist: composer cs phpunit
-ci: composer validate-cs phpunit-coverage
+dist: composer cs phpstan phpunit
+ci: composer validate-cs phpstan phpunit-coverage
 
 composer:
 	composer validate
@@ -17,3 +17,6 @@ phpunit:
 
 phpunit-coverage:
 	vendor/bin/phpunit --coverage-clover build/logs/clover.xml
+
+phpstan:
+	vendor/bin/phpstan analyse . --level 7 --configuration phpstan.neon
