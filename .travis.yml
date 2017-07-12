@@ -1,0 +1,25 @@
+language: php
+
+sudo: required
+dist: trusty
+group: edge
+
+cache:
+  directories:
+    - $HOME/.composer/cache
+
+php:
+  - 7.1
+
+matrix:
+  fast_finish: true
+
+before_script:
+  - composer install --prefer-dist --no-interaction --no-progress
+
+script:
+  - make ci
+
+after_success:
+  - wget https://scrutinizer-ci.com/ocular.phar
+  - php ocular.phar code-coverage:upload --format=php-clover build/logs/clover.xml
