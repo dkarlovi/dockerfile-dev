@@ -11,9 +11,7 @@ declare(strict_types = 1);
  * with this source code in the file LICENSE.
  */
 
-namespace Dkarlovi\Dockerfile\Statement\Run;
-
-use Dkarlovi\Dockerfile\Dumpable;
+namespace Dkarlovi\Dockerfile;
 
 /**
  * Class Command.
@@ -55,5 +53,18 @@ class Command implements Dumpable
         }
 
         return \sprintf($template, $this->intention, $params);
+    }
+
+    /**
+     * @return string
+     */
+    public function dumpSchema(): string
+    {
+        $schema = [$this->intention];
+        if (null !== $this->params) {
+            $schema = \array_merge($schema, $this->params);
+        }
+
+        return \sprintf('["%1$s"]', \implode('", "', $schema));
     }
 }

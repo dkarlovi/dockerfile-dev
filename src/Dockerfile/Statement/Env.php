@@ -16,28 +16,28 @@ namespace Dkarlovi\Dockerfile\Statement;
 use Dkarlovi\Dockerfile\Statement;
 
 /**
- * Class From.
+ * Class Env.
  */
-class From implements Statement
+class Env implements Statement
 {
     /**
      * @var string
      */
-    private $image;
+    private $name;
 
     /**
-     * @var null|string|int|float
+     * @var float|int|string
      */
-    private $tag;
+    private $value;
 
     /**
-     * @param string                $image
-     * @param null|string|int|float $tag
+     * @param string           $name
+     * @param string|int|float $value
      */
-    public function __construct(string $image, $tag = null)
+    public function __construct(string $name, $value)
     {
-        $this->image = $image;
-        $this->tag = $tag ?? 'latest';
+        $this->name = $name;
+        $this->value = $value;
     }
 
     /**
@@ -45,6 +45,6 @@ class From implements Statement
      */
     public function dump(): string
     {
-        return \sprintf('FROM %1$s:%2$s', $this->image, $this->tag);
+        return \sprintf('ENV %1$s %2$s', $this->name, $this->value);
     }
 }

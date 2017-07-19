@@ -17,23 +17,23 @@ use Dkarlovi\Dockerfile\Command;
 use Dkarlovi\Dockerfile\Statement;
 
 /**
- * Class Run.
+ * Class Entrypoint.
  */
-class Run implements Statement
+class Entrypoint implements Statement
 {
     /**
-     * @var Command[]
+     * @var Command
      */
-    private $commands;
+    private $command;
 
     /**
-     * Run constructor.
+     * Entrypoint constructor.
      *
-     * @param \Dkarlovi\Dockerfile\Command[] $commands
+     * @param Command $command
      */
-    public function __construct(array $commands)
+    public function __construct(Command $command)
     {
-        $this->commands = $commands;
+        $this->command = $command;
     }
 
     /**
@@ -41,11 +41,6 @@ class Run implements Statement
      */
     public function dump(): string
     {
-        $out = [];
-        foreach ($this->commands as $command) {
-            $out[] = $command->dump();
-        }
-
-        return 'RUN '.\implode(' && \\'."\n    ", $out);
+        return \sprintf('ENTRYPOINT %1$s', $this->command->dumpSchema());
     }
 }

@@ -16,28 +16,21 @@ namespace Dkarlovi\Dockerfile\Statement;
 use Dkarlovi\Dockerfile\Statement;
 
 /**
- * Class From.
+ * Class Comment.
  */
-class From implements Statement
+class Comment implements Statement
 {
     /**
      * @var string
      */
-    private $image;
+    private $content;
 
     /**
-     * @var null|string|int|float
+     * @param $content
      */
-    private $tag;
-
-    /**
-     * @param string                $image
-     * @param null|string|int|float $tag
-     */
-    public function __construct(string $image, $tag = null)
+    public function __construct(string $content)
     {
-        $this->image = $image;
-        $this->tag = $tag ?? 'latest';
+        $this->content = $content;
     }
 
     /**
@@ -45,6 +38,6 @@ class From implements Statement
      */
     public function dump(): string
     {
-        return \sprintf('FROM %1$s:%2$s', $this->image, $this->tag);
+        return '# '.\str_replace("\n", "\n# ", $this->content);
     }
 }
