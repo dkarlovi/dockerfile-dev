@@ -13,27 +13,26 @@ declare(strict_types = 1);
 
 namespace Dkarlovi\Dockerfile\Statement;
 
-use Dkarlovi\Dockerfile\Command;
 use Dkarlovi\Dockerfile\Statement;
 
 /**
- * Class Run.
+ * Class Workdir.
  */
-class Run implements Statement
+class Workdir implements Statement
 {
     /**
-     * @var Command[]
+     * @var string
      */
-    private $commands;
+    private $dir;
 
     /**
-     * Run constructor.
+     * Workdir constructor.
      *
-     * @param \Dkarlovi\Dockerfile\Command[] $commands
+     * @param string $dir
      */
-    public function __construct(array $commands)
+    public function __construct(string $dir)
     {
-        $this->commands = $commands;
+        $this->dir = $dir;
     }
 
     /**
@@ -41,11 +40,6 @@ class Run implements Statement
      */
     public function dump(): string
     {
-        $out = [];
-        foreach ($this->commands as $command) {
-            $out[] = $command->dump();
-        }
-
-        return 'RUN '.\implode(' && \\'."\n    ", $out);
+        return \sprintf('WORKDIR %1$s', $this->dir);
     }
 }

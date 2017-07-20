@@ -17,23 +17,30 @@ use Dkarlovi\Dockerfile\Command;
 use Dkarlovi\Dockerfile\Statement;
 
 /**
- * Class Run.
+ * Class Healthcheck.
  */
-class Run implements Statement
+class Healthcheck implements Statement
 {
     /**
-     * @var Command[]
+     * @var Command
      */
-    private $commands;
+    private $command;
 
     /**
-     * Run constructor.
-     *
-     * @param \Dkarlovi\Dockerfile\Command[] $commands
+     * @var string[]|null
      */
-    public function __construct(array $commands)
+    private $options;
+
+    /**
+     * Healthcheck constructor.
+     *
+     * @param Command       $command
+     * @param string[]|null $options
+     */
+    public function __construct(Command $command, ?array $options = null)
     {
-        $this->commands = $commands;
+        $this->command = $command;
+        $this->options = $options;
     }
 
     /**
@@ -41,11 +48,6 @@ class Run implements Statement
      */
     public function dump(): string
     {
-        $out = [];
-        foreach ($this->commands as $command) {
-            $out[] = $command->dump();
-        }
-
-        return 'RUN '.\implode(' && \\'."\n    ", $out);
+        return \sprintf('HEALTHCHECK CMD %1$s', $this->command->dumpSchema());
     }
 }
