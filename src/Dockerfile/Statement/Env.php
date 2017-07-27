@@ -47,4 +47,14 @@ class Env implements Statement
     {
         return \sprintf('ENV %1$s %2$s', $this->name, $this->value);
     }
+
+    /**
+     * @param array $spec
+     *
+     * @return Env
+     */
+    public static function build(array $spec): self
+    {
+        // TODO: Implement build() method.
+    }
 }

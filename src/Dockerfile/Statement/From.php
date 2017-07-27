@@ -47,4 +47,14 @@ class From implements Statement
     {
         return \sprintf('FROM %1$s:%2$s', $this->image, $this->tag);
     }
+
+    /**
+     * @param array $spec
+     *
+     * @return From
+     */
+    public static function build(array $spec): self
+    {
+        // TODO: Implement build() method.
+    }
 }

@@ -108,9 +108,18 @@ class DockerfileTest extends TestCase
                                     new Command(
                                         'apk add',
                                         [
-                                            '--update', '--no-cache',
-                                            'fcgi', 'icu', 'inotify-tools', 'tini',
-                                            'autoconf', 'cmake', 'g++', 'icu-dev', 'make', 'openssl-dev',
+                                            '--update',
+                                            '--no-cache',
+                                            'fcgi',
+                                            'icu',
+                                            'inotify-tools',
+                                            'tini',
+                                            'autoconf',
+                                            'cmake',
+                                            'g++',
+                                            'icu-dev',
+                                            'make',
+                                            'openssl-dev',
                                         ]
                                     ),
                                     new Command(
@@ -131,7 +140,13 @@ class DockerfileTest extends TestCase
                                     ),
                                     new Command(
                                         'rm -rf',
-                                        ['/tmp/pear', '/usr/src', '/usr/local/include/php', '/usr/include', '/var/cache/*']
+                                        [
+                                            '/tmp/pear',
+                                            '/usr/src',
+                                            '/usr/local/include/php',
+                                            '/usr/include',
+                                            '/var/cache/*',
+                                        ]
                                     ),
                                 ]
                             ),
@@ -141,18 +156,31 @@ class DockerfileTest extends TestCase
                             new Copy('var', '/app/var'),
                             new Copy('src', '/app/src'),
                             new Copy('etc', '/app/etc'),
-                            new Run([
-                                new Command('chown -R www-data', ['/app/var']),
-                            ]),
-                            new Copy(['./.infra/docker/app/php.ini', './.infra/docker/app/ext-*'], '/usr/local/etc/php/conf.d'),
-                            new Copy(['./.infra/docker/app/entrypoint.sh', './.infra/docker/app/docker-healthcheck'], '/usr/local/bin'),
+                            new Run(
+                                [
+                                    new Command('chown -R www-data', ['/app/var']),
+                                ]
+                            ),
+                            new Copy(
+                                ['./.infra/docker/app/php.ini', './.infra/docker/app/ext-*'],
+                                '/usr/local/etc/php/conf.d'
+                            ),
+                            new Copy(
+                                ['./.infra/docker/app/entrypoint.sh', './.infra/docker/app/docker-healthcheck'],
+                                '/usr/local/bin'
+                            ),
                             new Healthcheck(new Command('docker-healthcheck')),
-                            new Entrypoint(new Command('/sbin/tini', [
-                                '--',
-                                '/usr/local/bin/entrypoint.sh',
-                                '/usr/local/sbin/php-fpm',
-                                '--nodaemonize',
-                            ])),
+                            new Entrypoint(
+                                new Command(
+                                    '/sbin/tini',
+                                    [
+                                        '--',
+                                        '/usr/local/bin/entrypoint.sh',
+                                        '/usr/local/sbin/php-fpm',
+                                        '--nodaemonize',
+                                    ]
+                                )
+                            ),
                             new Workdir('/app'),
                         ]
                     ),

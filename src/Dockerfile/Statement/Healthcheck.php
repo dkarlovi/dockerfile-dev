@@ -40,6 +40,8 @@ class Healthcheck implements Statement
     public function __construct(Command $command, ?array $options = null)
     {
         $this->command = $command;
+
+        // TODO
         $this->options = $options;
     }
 
@@ -49,5 +51,15 @@ class Healthcheck implements Statement
     public function dump(): string
     {
         return \sprintf('HEALTHCHECK CMD %1$s', $this->command->dumpSchema());
+    }
+
+    /**
+     * @param array $spec
+     *
+     * @return Healthcheck
+     */
+    public static function build(array $spec): self
+    {
+        // TODO: Implement build() method.
     }
 }

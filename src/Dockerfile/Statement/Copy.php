@@ -64,4 +64,14 @@ class Copy implements Statement
 
         return \sprintf('COPY%3$s %1$s %2$s', $source, $target, $from);
     }
+
+    /**
+     * @param array $spec
+     *
+     * @return Copy
+     */
+    public static function build(array $spec): self
+    {
+        return new self($spec['from'], $spec['to']);
+    }
 }

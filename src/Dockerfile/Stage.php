@@ -14,11 +14,12 @@ declare(strict_types = 1);
 namespace Dkarlovi\Dockerfile;
 
 use Dkarlovi\Dockerfile\Statement\From;
+use Dkarlovi\Dockerfile\Statement\StatementFactory;
 
 /**
  * Class Stage.
  */
-class Stage
+class Stage implements Dumpable, Buildable
 {
     /**
      * @var From
@@ -64,6 +65,27 @@ class Stage
         }
 
         return \implode("\n", $out)."\n";
+    }
+
+    /**
+     * @param string[][] $spec
+     *
+     * @return Stage
+     */
+    public static function build(array $spec): self
+    {
+        $from = new From($spec['from'][0], $spec['from'][1]);
+
+        $statements = null;
+        if ($spec['statements']) {
+            /** @var string[][] $specStatements */
+            $specStatements = $spec['statements'];
+            foreach ($specStatements as $statement) {
+                $statements[] = StatementFactory::build($statement);
+            }
+        }
+
+        return new self($from, $statements);
     }
 
     /**

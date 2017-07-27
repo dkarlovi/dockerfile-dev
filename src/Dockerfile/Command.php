@@ -16,7 +16,7 @@ namespace Dkarlovi\Dockerfile;
 /**
  * Class Command.
  */
-class Command implements Dumpable
+class Command implements Buildable, Dumpable
 {
     /**
      * @var string
@@ -66,5 +66,17 @@ class Command implements Dumpable
         }
 
         return \sprintf('["%1$s"]', \implode('", "', $schema));
+    }
+
+    /**
+     * @param array $spec
+     *
+     * @return Command
+     */
+    public static function build(array $spec): Command
+    {
+        $params = $spec['params'] ?? null;
+
+        return new self($spec['intention'], $params);
     }
 }

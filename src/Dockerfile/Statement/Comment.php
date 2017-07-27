@@ -40,4 +40,14 @@ class Comment implements Statement
     {
         return '# '.\str_replace("\n", "\n# ", $this->content);
     }
+
+    /**
+     * @param array $spec
+     *
+     * @return Comment
+     */
+    public static function build(array $spec): self
+    {
+        // TODO: Implement build() method.
+    }
 }

@@ -42,4 +42,14 @@ class Workdir implements Statement
     {
         return \sprintf('WORKDIR %1$s', $this->dir);
     }
+
+    /**
+     * @param array $spec
+     *
+     * @return Workdir
+     */
+    public static function build(array $spec): self
+    {
+        return new self($spec['dir']);
+    }
 }

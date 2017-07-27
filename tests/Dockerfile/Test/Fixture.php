@@ -19,16 +19,54 @@ namespace Dkarlovi\Dockerfile\Test;
 class Fixture
 {
     /**
-     * @param $type
+     * @param string $type
+     *
+     * @throws \InvalidArgumentException
      *
      * @return string
      */
-    public static function getDockerfilePath($type): string
+    public static function getDockerfilePath(string $type): string
     {
-        $root = __DIR__.'/../../fixtures';
-        $path = \sprintf('%1$s/%2$s/Dockerfile', $root, $type);
+        return self::getAssetPath(__DIR__.'/../../fixtures/dockerfiles', $type, 'No such fixture');
+    }
+
+    /**
+     * @param string $type
+     *
+     * @throws \InvalidArgumentException
+     *
+     * @return string
+     */
+    public static function getSpecPath(string $type): string
+    {
+        return self::getAssetPath(__DIR__.'/../../fixtures/specs', $type, 'No such spec');
+    }
+
+    /**
+     * @param string $root
+     * @param string $type
+     *
+     * @return string
+     */
+    private static function formatPath(string $root, string $type): string
+    {
+        return  \sprintf('%1$s/%2$s/Dockerfile', $root, $type);
+    }
+
+    /**
+     * @param string $root
+     * @param string $type
+     * @param string $errorMessage
+     *
+     * @throws \InvalidArgumentException
+     *
+     * @return string
+     */
+    private static function getAssetPath(string $root, string $type, string $errorMessage): string
+    {
+        $path = self::formatPath($root, $type);
         if (false === \file_exists($path)) {
-            throw new \InvalidArgumentException('No such fixture');
+            throw new \InvalidArgumentException($errorMessage);
         }
 
         return $path;

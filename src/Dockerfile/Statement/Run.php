@@ -48,4 +48,22 @@ class Run implements Statement
 
         return 'RUN '.\implode(' && \\'."\n    ", $out);
     }
+
+    /**
+     * @param string[][][] $spec
+     *
+     * @return Run
+     */
+    public static function build(array $spec): self
+    {
+        $commands = [];
+
+        if ($spec['commands']) {
+            foreach ($spec['commands'] as $command) {
+                $commands[] = Command::build($command);
+            }
+        }
+
+        return new self($commands);
+    }
 }

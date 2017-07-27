@@ -43,4 +43,14 @@ class Entrypoint implements Statement
     {
         return \sprintf('ENTRYPOINT %1$s', $this->command->dumpSchema());
     }
+
+    /**
+     * @param array $spec
+     *
+     * @return Entrypoint
+     */
+    public static function build(array $spec): self
+    {
+        // TODO: Implement build() method.
+    }
 }
