@@ -14,6 +14,7 @@ declare(strict_types = 1);
 namespace Dkarlovi\Dockerfile\Statement;
 
 use Dkarlovi\Dockerfile\Statement;
+use Webmozart\Assert\Assert;
 
 /**
  * Class From.
@@ -55,6 +56,9 @@ class From implements Statement
      */
     public static function build(array $spec): self
     {
-        // TODO: Implement build() method.
+        Assert::keyExists($spec, 'image', 'From requires an "image" property');
+        $tag = $spec['tag'] ?? null;
+
+        return new self($spec['image'], $tag);
     }
 }

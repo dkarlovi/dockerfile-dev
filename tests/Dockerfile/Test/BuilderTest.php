@@ -43,24 +43,48 @@ class BuilderTest extends TestCase
     public function getFixtures(): array
     {
         return [
-            ['alpine', [
+            [
+                'alpine',
                 [
-                    'from' => ['alpine', 'latest'],
-                    'statements' => [
-                        ['type' => 'copy', 'params' => ['from' => 'test', 'to' => '/abc/test']],
-                        ['type' => 'copy', 'params' => ['from' => ['test1', 'test2'], 'to' => '/abc']],
-                        [
-                            'type' => 'run',
-                            'params' => [
-                                'commands' => [
-                                    ['intention' => 'apk add', 'params' => ['--no-cache', 'php7', 'php7-redis']],
-                                    ['intention' => 'date'],
+                    [
+                        'from' => ['image' => 'alpine', 'tag' => 'latest'],
+                        'statements' => [
+                            ['type' => 'copy', 'params' => ['source' => 'test', 'target' => '/abc/test']],
+                            ['type' => 'copy', 'params' => ['source' => ['test1', 'test2'], 'target' => '/abc']],
+                            [
+                                'type' => 'run',
+                                'params' => [
+                                    'commands' => [
+                                        ['intention' => 'apk add', 'params' => ['--no-cache', 'php7', 'php7-redis']],
+                                        ['intention' => 'date'],
+                                    ],
                                 ],
                             ],
                         ],
                     ],
                 ],
-            ]],
+            ],
+            [
+                'multistage',
+                [
+                    [
+                        'alias' => 'builder',
+                        'from' => ['image' => 'alpine', 'tag' => 'latest'],
+                        'statements' => [
+                            ['type' => 'copy', 'params' => ['source' => 'test', 'target' => '/abc/test']],
+                        ],
+                    ],
+                    [
+                        'from' => ['image' => 'alpine', 'tag' => 3.6],
+                        'statements' => [
+                            [
+                                'type' => 'copy',
+                                'params' => ['source' => '/abc/test', 'target' => '/bcd/test', 'from' => 'builder'],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
         ];
     }
 }

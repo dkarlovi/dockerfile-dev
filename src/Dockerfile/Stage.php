@@ -15,6 +15,7 @@ namespace Dkarlovi\Dockerfile;
 
 use Dkarlovi\Dockerfile\Statement\From;
 use Dkarlovi\Dockerfile\Statement\StatementFactory;
+use Webmozart\Assert\Assert;
 
 /**
  * Class Stage.
@@ -74,10 +75,11 @@ class Stage implements Dumpable, Buildable
      */
     public static function build(array $spec): self
     {
-        $from = new From($spec['from'][0], $spec['from'][1]);
+        Assert::keyExists($spec, 'from', 'Stage requires a "from" statement');
+        $from = From::build($spec['from']);
 
         $statements = null;
-        if ($spec['statements']) {
+        if (true === isset($spec['statements'])) {
             /** @var string[][] $specStatements */
             $specStatements = $spec['statements'];
             foreach ($specStatements as $statement) {
@@ -85,7 +87,9 @@ class Stage implements Dumpable, Buildable
             }
         }
 
-        return new self($from, $statements);
+        $alias = $spec['alias'] ?? null;
+
+        return new self($from, $statements, $alias);
     }
 
     /**
