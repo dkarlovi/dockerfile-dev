@@ -14,7 +14,6 @@ declare(strict_types = 1);
 namespace Dkarlovi\Dockerfile;
 
 use Dkarlovi\Dockerfile\Statement\From;
-use Dkarlovi\Dockerfile\Statement\StatementFactory;
 use Webmozart\Assert\Assert;
 
 /**

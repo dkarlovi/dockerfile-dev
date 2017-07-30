@@ -15,6 +15,7 @@ namespace Dkarlovi\Dockerfile\Statement;
 
 use Dkarlovi\Dockerfile\Command;
 use Dkarlovi\Dockerfile\Statement;
+use Webmozart\Assert\Assert;
 
 /**
  * Class Entrypoint.
@@ -51,6 +52,9 @@ class Entrypoint implements Statement
      */
     public static function build(array $spec): self
     {
-        // TODO: Implement build() method.
+        Assert::keyExists($spec, 'command', 'Entrypoint requires a "command" property');
+        $command = Command::build($spec['command']);
+
+        return new self($command);
     }
 }

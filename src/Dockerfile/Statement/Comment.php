@@ -48,6 +48,6 @@ class Comment implements Statement
      */
     public static function build(array $spec): self
     {
-        // TODO: Implement build() method.
+        return new self($spec['content']);
     }
 }

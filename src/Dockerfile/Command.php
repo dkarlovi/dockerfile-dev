@@ -13,6 +13,8 @@ declare(strict_types = 1);
 
 namespace Dkarlovi\Dockerfile;
 
+use Webmozart\Assert\Assert;
+
 /**
  * Class Command.
  */
@@ -21,7 +23,7 @@ class Command implements Buildable, Dumpable
     /**
      * @var string
      */
-    private $intention;
+    private $intent;
 
     /**
      * @var null|string[]
@@ -31,12 +33,12 @@ class Command implements Buildable, Dumpable
     /**
      * Command constructor.
      *
-     * @param string        $intention
+     * @param string        $intent
      * @param string[]|null $params
      */
-    public function __construct(string $intention, ?array $params = null)
+    public function __construct(string $intent, ?array $params = null)
     {
-        $this->intention = $intention;
+        $this->intent = $intent;
         $this->params = $params;
     }
 
@@ -52,7 +54,7 @@ class Command implements Buildable, Dumpable
             $params = \implode(' ', $this->params);
         }
 
-        return \sprintf($template, $this->intention, $params);
+        return \sprintf($template, $this->intent, $params);
     }
 
     /**
@@ -60,7 +62,7 @@ class Command implements Buildable, Dumpable
      */
     public function dumpSchema(): string
     {
-        $schema = [$this->intention];
+        $schema = [$this->intent];
         if (null !== $this->params) {
             $schema = \array_merge($schema, $this->params);
         }
@@ -75,8 +77,10 @@ class Command implements Buildable, Dumpable
      */
     public static function build(array $spec): Command
     {
+        Assert::keyExists($spec, 'intent', 'Command requires an "intent" property');
+
         $params = $spec['params'] ?? null;
 
-        return new self($spec['intention'], $params);
+        return new self($spec['intent'], $params);
     }
 }
