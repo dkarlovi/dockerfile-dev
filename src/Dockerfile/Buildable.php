@@ -14,8 +14,16 @@ declare(strict_types = 1);
 namespace Dkarlovi\Dockerfile;
 
 /**
- * Interface Statement.
+ * Interface Buildable.
  */
-interface Statement extends Dumpable, Buildable
+interface Buildable
 {
+    /** @noinspection ReturnTypeCanBeDeclaredInspection */
+
+    /**
+     * @param array $spec
+     *
+     * @return Buildable
+     */
+    public static function build(array $spec);
 }

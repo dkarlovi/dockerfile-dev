@@ -15,6 +15,7 @@ namespace Dkarlovi\Dockerfile\Statement;
 
 use Dkarlovi\Dockerfile\Command;
 use Dkarlovi\Dockerfile\Statement;
+use Webmozart\Assert\Assert;
 
 /**
  * Class Healthcheck.
@@ -40,6 +41,8 @@ class Healthcheck implements Statement
     public function __construct(Command $command, ?array $options = null)
     {
         $this->command = $command;
+
+        // TODO
         $this->options = $options;
     }
 
@@ -49,5 +52,19 @@ class Healthcheck implements Statement
     public function dump(): string
     {
         return \sprintf('HEALTHCHECK CMD %1$s', $this->command->dumpSchema());
+    }
+
+    /**
+     * @param array $spec
+     *
+     * @return Healthcheck
+     */
+    public static function build(array $spec): self
+    {
+        Assert::keyExists($spec, 'command', 'Healthcheck requires a "command" property');
+        $command = Command::build($spec['command']);
+        $options = $spec['options'] ?? null;
+
+        return new self($command, $options);
     }
 }

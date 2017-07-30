@@ -16,7 +16,7 @@ namespace Dkarlovi\Dockerfile;
 /**
  * Class Dockerfile.
  */
-class Dockerfile implements Dumpable
+class Dockerfile implements Dumpable, Buildable
 {
     /**
      * @var Stage[]
@@ -42,5 +42,20 @@ class Dockerfile implements Dumpable
         }
 
         return \implode("\n", $out);
+    }
+
+    /**
+     * @param array $spec
+     *
+     * @return Dockerfile
+     */
+    public static function build(array $spec): Dockerfile
+    {
+        $stages = [];
+        foreach ($spec as $alias => $stage) {
+            $stages[] = Stage::build($stage);
+        }
+
+        return new self($stages);
     }
 }

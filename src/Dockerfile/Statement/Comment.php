@@ -14,6 +14,7 @@ declare(strict_types = 1);
 namespace Dkarlovi\Dockerfile\Statement;
 
 use Dkarlovi\Dockerfile\Statement;
+use Webmozart\Assert\Assert;
 
 /**
  * Class Comment.
@@ -39,5 +40,17 @@ class Comment implements Statement
     public function dump(): string
     {
         return '# '.\str_replace("\n", "\n# ", $this->content);
+    }
+
+    /**
+     * @param array $spec
+     *
+     * @return Comment
+     */
+    public static function build(array $spec): self
+    {
+        Assert::keyExists($spec, 'content', 'Comment requires a "content" property');
+
+        return new self($spec['content']);
     }
 }

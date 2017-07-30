@@ -14,6 +14,7 @@ declare(strict_types = 1);
 namespace Dkarlovi\Dockerfile\Statement;
 
 use Dkarlovi\Dockerfile\Statement;
+use Webmozart\Assert\Assert;
 
 /**
  * Class Copy.
@@ -63,5 +64,19 @@ class Copy implements Statement
         $from = $this->from ? ' --from='.$this->from : null;
 
         return \sprintf('COPY%3$s %1$s %2$s', $source, $target, $from);
+    }
+
+    /**
+     * @param array $spec
+     *
+     * @return Copy
+     */
+    public static function build(array $spec): self
+    {
+        Assert::keyExists($spec, 'source', 'Copy requires a "source" property');
+        Assert::keyExists($spec, 'target', 'Copy requires a "target" property');
+        $from = $spec['from'] ?? null;
+
+        return new self($spec['source'], $spec['target'], $from);
     }
 }
