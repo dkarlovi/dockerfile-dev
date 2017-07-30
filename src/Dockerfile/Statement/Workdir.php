@@ -14,6 +14,7 @@ declare(strict_types = 1);
 namespace Dkarlovi\Dockerfile\Statement;
 
 use Dkarlovi\Dockerfile\Statement;
+use Webmozart\Assert\Assert;
 
 /**
  * Class Workdir.
@@ -50,6 +51,8 @@ class Workdir implements Statement
      */
     public static function build(array $spec): self
     {
+        Assert::keyExists($spec, 'dir', 'Workdir requires a "dir" property');
+
         return new self($spec['dir']);
     }
 }

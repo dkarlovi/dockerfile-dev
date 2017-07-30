@@ -14,6 +14,7 @@ declare(strict_types = 1);
 namespace Dkarlovi\Dockerfile\Statement;
 
 use Dkarlovi\Dockerfile\Statement;
+use Webmozart\Assert\Assert;
 
 /**
  * Class Env.
@@ -55,6 +56,9 @@ class Env implements Statement
      */
     public static function build(array $spec): self
     {
+        Assert::keyExists($spec, 'name', 'Env requires a "name" property');
+        Assert::keyExists($spec, 'name', 'Env requires a "value" property');
+
         return new self($spec['name'], $spec['value']);
     }
 }
