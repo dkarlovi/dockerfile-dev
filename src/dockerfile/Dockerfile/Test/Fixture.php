@@ -27,7 +27,7 @@ class Fixture
      */
     public static function getDockerfilePath(string $type): string
     {
-        return self::getAssetPath(__DIR__.'/../../fixtures/dockerfiles', $type, 'No such fixture');
+        return self::getAssetPath(__DIR__.'/fixtures/dockerfiles', $type, 'No such fixture');
     }
 
     /**
@@ -39,7 +39,7 @@ class Fixture
      */
     public static function getSpecPath(string $type): string
     {
-        return self::getAssetPath(__DIR__.'/../../fixtures/specs', $type, 'No such spec');
+        return self::getAssetPath(__DIR__.'/fixtures/specs', $type, 'No such spec');
     }
 
     /**

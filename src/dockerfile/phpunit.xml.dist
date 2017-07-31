@@ -11,12 +11,12 @@
          beStrictAboutTodoAnnotatedTests="true">
     <testsuites>
         <testsuite name="Dockerfile">
-            <directory>./src/dockerfile/Dockerfile/Test</directory>
+            <directory>./Dockerfile/Test</directory>
         </testsuite>
     </testsuites>
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
-            <directory suffix=".php">./src</directory>
+            <directory suffix=".php">./Dockerfile</directory>
         </whitelist>
     </filter>
 </phpunit>
