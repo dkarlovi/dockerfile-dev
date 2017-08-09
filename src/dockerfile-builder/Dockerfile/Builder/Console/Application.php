@@ -13,7 +13,9 @@ declare(strict_types = 1);
 
 namespace Dkarlovi\Dockerfile\Builder\Console;
 
+use Dkarlovi\Dockerfile\Builder\Command\BuildCommand;
 use Symfony\Component\Console\Application as BaseApplication;
+use Symfony\Component\Console\Command\Command;
 
 /**
  * Class Application.
@@ -26,5 +28,22 @@ class Application extends BaseApplication
     public function __construct()
     {
         parent::__construct('Dockerfile Builder');
+    }
+
+    /**
+     * Gets the default commands that should always be available.
+     *
+     * @throws \Symfony\Component\Console\Exception\LogicException
+     *
+     * @return Command[] An array of default Command instances
+     */
+    protected function getDefaultCommands(): array
+    {
+        return \array_merge(
+            parent::getDefaultCommands(),
+            [
+                new BuildCommand(),
+            ]
+        );
     }
 }

@@ -57,7 +57,7 @@ class Env implements Statement
     public static function build(array $spec): self
     {
         Assert::keyExists($spec, 'name', 'Env requires a "name" property');
-        Assert::keyExists($spec, 'name', 'Env requires a "value" property');
+        Assert::keyExists($spec, 'value', 'Env requires a "value" property');
 
         return new self($spec['name'], $spec['value']);
     }

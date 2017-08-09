@@ -1,0 +1,18 @@
+- alias: builder
+  from:
+    image: alpine
+    tag: latest
+  statements:
+    - type: copy
+      params:
+        source: test
+        target: /abc/test
+- from:
+    image: alpine
+    tag: 3.6
+  statements:
+    - type: copy
+      params:
+        from: builder
+        source: /abc/test
+        target: /bcd/test

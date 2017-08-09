@@ -21,15 +21,15 @@ do
     echo "Releasing $REMOTE";
 
 	TMP_DIR="/tmp/dockerfile-repo"
-    REMOTE_URL=`git remote get-url $REMOTE`
+    REMOTE_URL=`git remote get-url ${REMOTE}`
 
-    rm -rf $TMP_DIR;
-    mkdir $TMP_DIR;
+    rm -rf ${TMP_DIR};
+    mkdir ${TMP_DIR};
 
     (
-        cd $TMP_DIR;
-        git clone $REMOTE_URL . --depth=200
-        git checkout $CURRENT_BRANCH;
+        cd ${TMP_DIR};
+        git clone ${REMOTE_URL} . --depth=200
+        git checkout ${CURRENT_BRANCH};
         LAST_RELEASE=$(git tag -l [0-9].* | sort -rV | head -n1 )
 
         echo "Last release $LAST_RELEASE";

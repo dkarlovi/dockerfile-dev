@@ -12,6 +12,7 @@
     <testsuites>
         <testsuite name="Dockerfile">
             <directory>./src/dockerfile/Dockerfile/Test</directory>
+            <directory>./src/dockerfile-builder/Dockerfile/Builder/Test</directory>
         </testsuite>
     </testsuites>
     <filter>
