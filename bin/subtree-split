@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+# shamelessly stolen from https://github.com/php-enqueue/enqueue-dev
+
+set -e
+set -x
+
+CURRENT_BRANCH=`git rev-parse --abbrev-ref HEAD`
+function remote()
+{
+    git remote add $1 $2 || true;
+}
+
+function split()
+{
+    SHA1=`splitsh-lite --prefix=$1`
+    git push $2 "$SHA1:$CURRENT_BRANCH"
+}
+
+remote dockerfile git@github.com:dkarlovi/dockerfile.git
+remote dockerfile-builder git@github.com:dkarlovi/dockerfile-builder.git
+
+split 'src/dockerfile' dockerfile
+split 'src/dockerfile-builder' dockerfile-builder

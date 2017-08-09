@@ -1,4 +1,4 @@
-.PHONY: ci composer cs validate-cs phpunit phpunit-coverage phpstan
+.PHONY: ci composer cs validate-cs phpunit phpunit-coverage phpstan split
 
 dist: composer cs phpstan phpunit
 ci: composer validate-cs phpstan phpunit-coverage
@@ -20,3 +20,6 @@ phpunit-coverage:
 
 phpstan:
 	vendor/bin/phpstan analyse . --level 7 --configuration phpstan.neon
+
+split:
+	bin/subtree-split

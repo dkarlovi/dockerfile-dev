@@ -1,7 +1,7 @@
 {
-    "name": "dkarlovi/dockerfile-dev",
-    "description": "Dockerfile generation mono-repo",
+    "name": "dkarlovi/dockerfile",
     "type": "library",
+    "description": "Dockerfile generation library",
     "license": "MIT",
     "authors": [
         {
@@ -11,23 +11,15 @@
     ],
     "autoload": {
         "psr-4": {
-            "Dkarlovi\\Dockerfile\\Builder\\": "src/dockerfile-builder/Dockerfile/Builder/",
-            "Dkarlovi\\Dockerfile\\": "src/dockerfile/Dockerfile/"
+            "Dkarlovi\\Dockerfile\\": "Dockerfile/"
         }
     },
-    "bin": [
-        "src/dockerfile-builder/bin/dockerfile-builder"
-    ],
     "require": {
         "php": "^7.1",
         "webmozart/assert": "^1.2"
     },
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "^2.4",
-        "phpstan/phpstan": "^0.8",
-        "phpunit/phpunit": "^6.2",
-        "symfony/console": "^3.3",
-        "symfony/yaml": "^3.3"
+        "phpunit/phpunit": "^6.2"
     },
     "config": {
         "sort-packages": true

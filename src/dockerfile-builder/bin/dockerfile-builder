@@ -1,0 +1,21 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types = 1);
+
+if (version_compare('7.0.0', PHP_VERSION, '>')) {
+    fwrite(STDERR, 'Dockerfile Builder requires PHP 7.0+'.PHP_EOL);
+    exit(1);
+}
+if (PHP_SAPI !== 'cli') {
+    fwrite(STDERR, 'Dockerfile Builder must be invoked via CLI version of PHP'.PHP_EOL);
+    exit(1);
+}
+if (!ini_get('date.timezone')) {
+    ini_set('date.timezone', 'UTC');
+}
+
+require __DIR__.'/../bootstrap.php';
+use Dkarlovi\Dockerfile\Builder\Console\Application;
+$application = new Application();
+$application->run();
