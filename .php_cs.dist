@@ -54,7 +54,7 @@ return PhpCsFixer\Config::create()
         'phpdoc_order' => true,
         'psr4' => true,
         'semicolon_after_instruction' => true,
-        'single_line_comment_style' => true,
+        // 'single_line_comment_style' => true,
         'simplified_null_return' => true,
         'strict_comparison' => true,
         'strict_param' => true,

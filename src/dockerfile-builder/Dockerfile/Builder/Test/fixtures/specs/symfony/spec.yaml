@@ -1,0 +1,60 @@
+- from:
+    image: php
+    tag: 7.1-fpm-alpine
+  statements:
+    - type: env
+      params:
+        name: REDIS_VERSION
+        value: 3.1.2
+    - type: comment
+      params:
+        content: "required modules:\nampq apcu igbinary intl opcache pcntl pdo_mysql redis xdebug"
+    - type: run
+      params:
+        commands:
+          - intent: apk add
+            params: [--update, --no-cache, fcgi, icu, inotify-tools, tini, autoconf, cmake, g++, icu-dev, make, openssl-dev]
+          - intent: docker-php-ext-install
+            params: [intl, opcache, pcntl, pdo_mysql]
+          - intent: pecl install
+            params: [apcu, igbinary, xdebug]
+          - intent: docker-php-ext-enable
+            params: [apcu, igbinary, xdebug]
+          - intent: apk del
+            params: [autoconf, g++, icu-dev, make, cmake, openssl-dev]
+          - intent: rm -rf
+            params: [/tmp/pear, /usr/src, /usr/local/include/php, /usr/include, /var/cache/*]
+    - type: comment
+      params:
+        content: order is important here
+    - type: copy
+      params: {source: vendor, target: /app/vendor}
+    - type: copy
+      params: {source: web, target: /app/web}
+    - type: copy
+      params: {source: var, target: /app/var}
+    - type: copy
+      params: {source: src, target: /app/src}
+    - type: copy
+      params: {source: etc, target: /app/etc}
+    - type: run
+      params:
+        commands:
+          - intent: chown -R www-data
+            params: [/app/var]
+    - type: copy
+      params: {source: [./.infra/docker/app/php.ini, ./.infra/docker/app/ext-*], target: /usr/local/etc/php/conf.d}
+    - type: copy
+      params: {source: [./.infra/docker/app/entrypoint.sh, ./.infra/docker/app/docker-healthcheck], target: /usr/local/bin}
+    - type: healthcheck
+      params:
+        command:
+          intent: docker-healthcheck
+    - type: entrypoint
+      params:
+        command:
+          intent: /sbin/tini
+          params: [--, /usr/local/bin/entrypoint.sh, /usr/local/sbin/php-fpm, --nodaemonize]
+    - type: workdir
+      params:
+        dir: /app

@@ -1,0 +1,18 @@
+- from:
+    image: alpine
+    tag: latest
+  statements:
+  - type: copy
+    params:
+      source: test
+      target: /abc/test
+  - type: copy
+    params:
+      source: [test1, test2]
+      target: /abc/
+  - type: run
+    params:
+      commands:
+      - intent: apk add
+        params: [--no-cache, php7, php7-redis]
+      - intent: date

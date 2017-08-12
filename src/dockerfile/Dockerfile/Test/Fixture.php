@@ -27,48 +27,38 @@ class Fixture
      */
     public static function getDockerfilePath(string $type): string
     {
-        return self::getAssetPath(__DIR__.'/fixtures/dockerfiles', $type, 'No such fixture');
-    }
-
-    /**
-     * @param string $type
-     *
-     * @throws \InvalidArgumentException
-     *
-     * @return string
-     */
-    public static function getSpecPath(string $type): string
-    {
-        return self::getAssetPath(__DIR__.'/fixtures/specs', $type, 'No such spec');
+        return self::getAssetPath(__DIR__.'/fixtures/dockerfiles', $type, 'Dockerfile', 'No such fixture');
     }
 
     /**
      * @param string $root
      * @param string $type
-     *
-     * @return string
-     */
-    private static function formatPath(string $root, string $type): string
-    {
-        return  \sprintf('%1$s/%2$s/Dockerfile', $root, $type);
-    }
-
-    /**
-     * @param string $root
-     * @param string $type
+     * @param string $filename
      * @param string $errorMessage
      *
-     * @throws \InvalidArgumentException
-     *
      * @return string
      */
-    private static function getAssetPath(string $root, string $type, string $errorMessage): string
+    protected static function getAssetPath(string $root, string $type, string $filename, string $errorMessage): string
     {
-        $path = self::formatPath($root, $type);
+        $path = self::formatPath($root, $type, $filename);
         if (false === \file_exists($path)) {
-            throw new \InvalidArgumentException($errorMessage);
+            $error = \sprintf('%1$s: %2$s', $path, $errorMessage);
+
+            throw new \InvalidArgumentException($error);
         }
 
         return $path;
+    }
+
+    /**
+     * @param string $root
+     * @param string $type
+     * @param string $filename
+     *
+     * @return string
+     */
+    private static function formatPath(string $root, string $type, string $filename): string
+    {
+        return \sprintf('%1$s/%2$s/%3$s', $root, $type, $filename);
     }
 }
