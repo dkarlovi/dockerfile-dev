@@ -40,7 +40,7 @@ class DockerfileTest extends TestCase
      * @param string $fixture
      * @param array  $stages
      */
-    public function testConstructedDockerfilesShouldMatchFixtures(string $fixture, array $stages): void
+    public function testBuiltDockerfilesShouldMatchFixtures(string $fixture, array $stages): void
     {
         $fixture = Fixture::getDockerfilePath($fixture);
         $dockerfile = new Dockerfile($stages);
