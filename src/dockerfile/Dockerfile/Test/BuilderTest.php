@@ -28,7 +28,7 @@ class BuilderTest extends TestCase
      * @param string $fixture
      * @param array  $spec
      */
-    public function testBuiltDockerfileShouldMatchFixtures(string $fixture, array $spec): void
+    public function testBuiltDockerfilesShouldMatchFixtures(string $fixture, array $spec): void
     {
         $fixture = Fixture::getDockerfilePath($fixture);
         $builder = new Builder($spec);

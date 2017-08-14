@@ -27,7 +27,7 @@ class BuilderTest extends TestCase
      * @param string $fixture
      * @param string $yamlSpec
      */
-    public function testBuiltDockerfileShouldMatchFixtures(string $fixture, string $yamlSpec): void
+    public function testBuiltDockerfilesShouldMatchFixtures(string $fixture, string $yamlSpec): void
     {
         $fixture = Fixture::getDockerfilePath($fixture);
         $dockerfile = Builder::build(Fixture::getSpecPath($yamlSpec));
