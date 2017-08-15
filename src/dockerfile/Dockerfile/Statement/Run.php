@@ -19,6 +19,7 @@ use Dkarlovi\Dockerfile\Amendment;
 use Dkarlovi\Dockerfile\Command;
 use Dkarlovi\Dockerfile\Exception;
 use Dkarlovi\Dockerfile\Statement;
+use Webmozart\Assert\Assert;
 
 /**
  * Class Run.
@@ -62,12 +63,11 @@ class Run implements AmendableCollection, Statement
      */
     public static function build(array $spec): self
     {
-        $commands = [];
+        Assert::keyExists($spec, 'commands', 'Run statement requires a "commands" property');
 
-        if ($spec['commands']) {
-            foreach ($spec['commands'] as $command) {
-                $commands[] = Command::build($command);
-            }
+        $commands = [];
+        foreach ($spec['commands'] as $command) {
+            $commands[] = Command::build($command);
         }
 
         return new self($commands);

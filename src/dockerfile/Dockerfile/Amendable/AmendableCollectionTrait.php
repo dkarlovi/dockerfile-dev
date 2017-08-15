@@ -29,7 +29,7 @@ trait AmendableCollectionTrait
      */
     public function amendFirstBy(Amendment $amendment): void
     {
-        $collection = (array) $this->getAmendableCollection();
+        $collection = $this->getAmendableCollection();
         foreach ($collection as $amendable) {
             if (true === $amendable->isApplicableTo($amendment)) {
                 $amendable->amendBy($amendment);
@@ -52,7 +52,7 @@ trait AmendableCollectionTrait
     }
 
     /**
-     * @return null|Amendment[]
+     * @return Amendment[]
      */
     abstract protected function getAmendableCollection(): array;
 }

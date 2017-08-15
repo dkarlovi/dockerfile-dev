@@ -95,11 +95,11 @@ class Stage implements AmendableCollection, Dumpable, Buildable
     }
 
     /**
-     * @return null|Amendment[]
+     * @return Amendment[]
      */
-    protected function getAmendableCollection(): ?array
+    protected function getAmendableCollection(): array
     {
-        return $this->statements;
+        return (array) $this->statements;
     }
 
     /**

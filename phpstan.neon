@@ -1,6 +1,7 @@
 parameters:
     ignoreErrors:
     - /PHPUnit_Framework_MockObject_MockObject.*given/
+    - /returns.*PHPUnit_Framework_MockObject_MockObject/
     excludes_analyse:
     - build/
     - src/dockerfile/vendor/
