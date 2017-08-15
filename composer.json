@@ -15,6 +15,12 @@
             "Dkarlovi\\Dockerfile\\": "src/dockerfile/Dockerfile/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Dkarlovi\\Dockerfile\\Builder\\Test\\": "src/dockerfile-builder/Dockerfile/Builder/Test/",
+            "Dkarlovi\\Dockerfile\\Test\\": "src/dockerfile/Dockerfile/Test/"
+        }
+    },
     "bin": [
         "src/dockerfile-builder/bin/dockerfile-builder"
     ],

@@ -12,12 +12,18 @@
     <testsuites>
         <testsuite name="Dockerfile">
             <directory>./src/dockerfile/Dockerfile/Test</directory>
+        </testsuite>
+        <testsuite name="Dockerfile Builder">
             <directory>./src/dockerfile-builder/Dockerfile/Builder/Test</directory>
         </testsuite>
     </testsuites>
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
-            <directory suffix=".php">./src</directory>
+            <directory suffix=".php">./src/dockerfile/Dockerfile</directory>
+            <exclude>
+                <directory>./src/dockerfile/Dockerfile/Test</directory>
+                <directory>./src/dockerfile-builder/Dockerfile/Builder/Test</directory>
+            </exclude>
         </whitelist>
     </filter>
 </phpunit>
