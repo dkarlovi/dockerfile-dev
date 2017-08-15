@@ -13,6 +13,8 @@ declare(strict_types = 1);
 
 namespace Dkarlovi\Dockerfile\Statement;
 
+use Dkarlovi\Dockerfile\Amendable\AmendableTrait;
+use Dkarlovi\Dockerfile\Amendment;
 use Dkarlovi\Dockerfile\Statement;
 use Webmozart\Assert\Assert;
 
@@ -21,6 +23,8 @@ use Webmozart\Assert\Assert;
  */
 class Comment implements Statement
 {
+    use AmendableTrait;
+
     /**
      * @var string
      */
@@ -52,5 +56,29 @@ class Comment implements Statement
         Assert::keyExists($spec, 'content', 'Comment requires a "content" property');
 
         return new self($spec['content']);
+    }
+
+    /**
+     * @return string
+     */
+    public function getIntent(): string
+    {
+        // TODO: Implement getIdentifier() method.
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAmendmentBody()
+    {
+        // TODO: Implement getAmendmentBody() method.
+    }
+
+    /**
+     * @param Amendment $amendment
+     */
+    protected function amendSelfBy(Amendment $amendment): void
+    {
+        // TODO: Implement amendSelfBy() method.
     }
 }

@@ -13,21 +13,24 @@ declare(strict_types = 1);
 
 namespace Dkarlovi\Dockerfile;
 
+use Dkarlovi\Dockerfile\Amendable\AmendableCollectionTrait;
 use Dkarlovi\Dockerfile\Statement\From;
 use Webmozart\Assert\Assert;
 
 /**
  * Class Stage.
  */
-class Stage implements Dumpable, Buildable
+class Stage implements AmendableCollection, Dumpable, Buildable
 {
+    use AmendableCollectionTrait;
+
     /**
      * @var From
      */
     private $from;
 
     /**
-     * @var null|array
+     * @var null|Statement[]
      */
     private $statements;
 
@@ -89,6 +92,14 @@ class Stage implements Dumpable, Buildable
         $alias = $spec['alias'] ?? null;
 
         return new self($from, $statements, $alias);
+    }
+
+    /**
+     * @return null|Amendment[]
+     */
+    protected function getAmendableCollection(): ?array
+    {
+        return $this->statements;
     }
 
     /**

@@ -18,6 +18,8 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * Class BuilderTest.
+ *
+ * @coversNothing
  */
 class BuilderTest extends TestCase
 {
@@ -47,7 +49,7 @@ class BuilderTest extends TestCase
                 'alpine',
                 [
                     [
-                        'from' => ['image' => 'alpine', 'tag' => 'latest'],
+                        'from' => ['image' => 'alpine:latest'],
                         'statements' => [
                             ['type' => 'copy', 'params' => ['source' => 'test', 'target' => '/abc/test']],
                             ['type' => 'copy', 'params' => ['source' => ['test1', 'test2'], 'target' => '/abc']],
@@ -69,13 +71,13 @@ class BuilderTest extends TestCase
                 [
                     [
                         'alias' => 'builder',
-                        'from' => ['image' => 'alpine', 'tag' => 'latest'],
+                        'from' => ['image' => 'alpine:latest'],
                         'statements' => [
                             ['type' => 'copy', 'params' => ['source' => 'test', 'target' => '/abc/test']],
                         ],
                     ],
                     [
-                        'from' => ['image' => 'alpine', 'tag' => 3.6],
+                        'from' => ['image' => 'alpine:3.6'],
                         'statements' => [
                             [
                                 'type' => 'copy',
@@ -89,7 +91,7 @@ class BuilderTest extends TestCase
                 'symfony',
                 [
                     [
-                        'from' => ['image' => 'php', 'tag' => '7.1-fpm-alpine'],
+                        'from' => ['image' => 'php:7.1-fpm-alpine'],
                         'statements' => [
                             [
                                 'type' => 'env',

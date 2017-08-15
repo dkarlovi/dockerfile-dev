@@ -13,6 +13,8 @@ declare(strict_types = 1);
 
 namespace Dkarlovi\Dockerfile\Statement;
 
+use Dkarlovi\Dockerfile\Amendable\AmendableTrait;
+use Dkarlovi\Dockerfile\Amendment;
 use Dkarlovi\Dockerfile\Statement;
 use Webmozart\Assert\Assert;
 
@@ -21,24 +23,19 @@ use Webmozart\Assert\Assert;
  */
 class From implements Statement
 {
+    use AmendableTrait;
+
     /**
      * @var string
      */
     private $image;
 
     /**
-     * @var null|string|int|float
+     * @param string $image
      */
-    private $tag;
-
-    /**
-     * @param string                $image
-     * @param null|string|int|float $tag
-     */
-    public function __construct(string $image, $tag = null)
+    public function __construct(string $image)
     {
         $this->image = $image;
-        $this->tag = $tag ?? 'latest';
     }
 
     /**
@@ -46,7 +43,7 @@ class From implements Statement
      */
     public function dump(): string
     {
-        return \sprintf('FROM %1$s:%2$s', $this->image, $this->tag);
+        return \sprintf('FROM %1$s', $this->image);
     }
 
     /**
@@ -57,8 +54,31 @@ class From implements Statement
     public static function build(array $spec): self
     {
         Assert::keyExists($spec, 'image', 'From requires an "image" property');
-        $tag = $spec['tag'] ?? null;
 
-        return new self($spec['image'], $tag);
+        return new self($spec['image']);
+    }
+
+    /**
+     * @return string
+     */
+    public function getIntent(): string
+    {
+        return self::class;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAmendmentBody()
+    {
+        return $this->image;
+    }
+
+    /**
+     * @param Amendment $amendment
+     */
+    protected function amendSelfBy(Amendment $amendment): void
+    {
+        $this->image = $amendment->getAmendmentBody();
     }
 }

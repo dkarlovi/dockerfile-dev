@@ -1,15 +1,13 @@
 - alias: builder
   from:
-    image: alpine
-    tag: latest
+    image: alpine:latest
   statements:
     - type: copy
       params:
         source: test
         target: /abc/test
 - from:
-    image: alpine
-    tag: 3.6
+    image: alpine:3.6
   statements:
     - type: copy
       params:

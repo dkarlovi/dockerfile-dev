@@ -18,6 +18,8 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * Class BuilderTest.
+ *
+ * @coversNothing
  */
 class BuilderTest extends TestCase
 {

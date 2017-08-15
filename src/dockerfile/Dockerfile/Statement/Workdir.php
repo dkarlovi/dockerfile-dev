@@ -13,6 +13,8 @@ declare(strict_types = 1);
 
 namespace Dkarlovi\Dockerfile\Statement;
 
+use Dkarlovi\Dockerfile\Amendable\AmendableTrait;
+use Dkarlovi\Dockerfile\Amendment;
 use Dkarlovi\Dockerfile\Statement;
 use Webmozart\Assert\Assert;
 
@@ -21,6 +23,8 @@ use Webmozart\Assert\Assert;
  */
 class Workdir implements Statement
 {
+    use AmendableTrait;
+
     /**
      * @var string
      */
@@ -54,5 +58,29 @@ class Workdir implements Statement
         Assert::keyExists($spec, 'dir', 'Workdir requires a "dir" property');
 
         return new self($spec['dir']);
+    }
+
+    /**
+     * @return string
+     */
+    public function getIntent(): string
+    {
+        // TODO: Implement getIntent() method.
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAmendmentBody()
+    {
+        // TODO: Implement getAmendmentBody() method.
+    }
+
+    /**
+     * @param Amendment $amendment
+     */
+    protected function amendSelfBy(Amendment $amendment): void
+    {
+        // TODO: Implement amendSelfBy() method.
     }
 }

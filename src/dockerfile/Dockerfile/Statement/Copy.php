@@ -13,6 +13,8 @@ declare(strict_types = 1);
 
 namespace Dkarlovi\Dockerfile\Statement;
 
+use Dkarlovi\Dockerfile\Amendable\AmendableTrait;
+use Dkarlovi\Dockerfile\Amendment;
 use Dkarlovi\Dockerfile\Statement;
 use Webmozart\Assert\Assert;
 
@@ -21,8 +23,10 @@ use Webmozart\Assert\Assert;
  */
 class Copy implements Statement
 {
+    use AmendableTrait;
+
     /**
-     * @var string|string[]
+     * @var string[]
      */
     private $source;
 
@@ -45,7 +49,7 @@ class Copy implements Statement
      */
     public function __construct($source, string $target, ?string $from = null)
     {
-        $this->source = $source;
+        $this->source = (array) $source;
         $this->target = $target;
         $this->from = $from;
     }
@@ -55,15 +59,13 @@ class Copy implements Statement
      */
     public function dump(): string
     {
-        $source = $this->source;
         $target = $this->target;
-        if (true === \is_array($source)) {
-            $source = \implode(' ', $source);
+        if (\count($this->source) > 1) {
             $target = \rtrim($target, '/').'/';
         }
         $from = $this->from ? ' --from='.$this->from : null;
 
-        return \sprintf('COPY%3$s %1$s %2$s', $source, $target, $from);
+        return \sprintf('COPY%3$s %1$s %2$s', \implode(' ', $this->source), $target, $from);
     }
 
     /**
@@ -78,5 +80,29 @@ class Copy implements Statement
         $from = $spec['from'] ?? null;
 
         return new self($spec['source'], $spec['target'], $from);
+    }
+
+    /**
+     * @return string
+     */
+    public function getIntent(): string
+    {
+        return $this->target.(null !== $this->from ? '_'.$this->from : null);
+    }
+
+    /**
+     * @return array
+     */
+    public function getAmendmentBody(): array
+    {
+        return $this->source;
+    }
+
+    /**
+     * @param Amendment $amendment
+     */
+    protected function amendSelfBy(Amendment $amendment): void
+    {
+        $this->source = \array_merge($this->source, $amendment->getAmendmentBody());
     }
 }

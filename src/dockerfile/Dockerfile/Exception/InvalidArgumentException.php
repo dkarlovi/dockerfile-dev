@@ -11,11 +11,11 @@ declare(strict_types = 1);
  * with this source code in the file LICENSE.
  */
 
-namespace Dkarlovi\Dockerfile;
+namespace Dkarlovi\Dockerfile\Exception;
 
 /**
- * Interface Statement.
+ * Class InvalidArgumentException.
  */
-interface Statement extends Amendment, Buildable, Dumpable
+class InvalidArgumentException extends \InvalidArgumentException
 {
 }

@@ -13,6 +13,8 @@ declare(strict_types = 1);
 
 namespace Dkarlovi\Dockerfile\Statement;
 
+use Dkarlovi\Dockerfile\Amendable\AmendableTrait;
+use Dkarlovi\Dockerfile\Amendment;
 use Dkarlovi\Dockerfile\Statement;
 use Webmozart\Assert\Assert;
 
@@ -21,6 +23,8 @@ use Webmozart\Assert\Assert;
  */
 class Env implements Statement
 {
+    use AmendableTrait;
+
     /**
      * @var string
      */
@@ -60,5 +64,29 @@ class Env implements Statement
         Assert::keyExists($spec, 'value', 'Env requires a "value" property');
 
         return new self($spec['name'], $spec['value']);
+    }
+
+    /**
+     * @return string
+     */
+    public function getIntent(): string
+    {
+        // TODO: Implement getIntent() method.
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAmendmentBody()
+    {
+        // TODO: Implement getAmendmentBody() method.
+    }
+
+    /**
+     * @param Amendment $amendment
+     */
+    protected function amendSelfBy(Amendment $amendment): void
+    {
+        // TODO: Implement amendSelfBy() method.
     }
 }

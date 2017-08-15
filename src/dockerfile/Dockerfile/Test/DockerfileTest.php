@@ -58,7 +58,7 @@ class DockerfileTest extends TestCase
                 'alpine',
                 [
                     new Stage(
-                        new From('alpine'),
+                        new From('alpine:latest'),
                         [
                             new Copy('test', '/abc/test'),
                             new Copy(['test1', 'test2'], '/abc'),
@@ -83,12 +83,12 @@ class DockerfileTest extends TestCase
                 'multistage',
                 [
                     new Stage(
-                        new From('alpine', 'latest'),
+                        new From('alpine:latest'),
                         [new Copy('test', '/abc/test')],
                         'builder'
                     ),
                     new Stage(
-                        new From('alpine', '3.6'),
+                        new From('alpine:3.6'),
                         [new Copy('/abc/test', '/bcd/test', 'builder')]
                     ),
                 ],
@@ -97,7 +97,7 @@ class DockerfileTest extends TestCase
                 'symfony',
                 [
                     new Stage(
-                        new From('php', '7.1-fpm-alpine'),
+                        new From('php:7.1-fpm-alpine'),
                         [
                             new Env('REDIS_VERSION', '3.1.2'),
                             new Comment(

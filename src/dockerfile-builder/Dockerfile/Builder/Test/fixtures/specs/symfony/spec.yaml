@@ -1,6 +1,5 @@
 - from:
-    image: php
-    tag: 7.1-fpm-alpine
+    image: php:7.1-fpm-alpine
   statements:
     - type: env
       params:

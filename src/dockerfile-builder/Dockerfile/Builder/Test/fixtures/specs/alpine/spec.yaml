@@ -1,6 +1,5 @@
 - from:
-    image: alpine
-    tag: latest
+    image: alpine:latest
   statements:
   - type: copy
     params:

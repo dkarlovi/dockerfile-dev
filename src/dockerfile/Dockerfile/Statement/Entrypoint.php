@@ -13,6 +13,8 @@ declare(strict_types = 1);
 
 namespace Dkarlovi\Dockerfile\Statement;
 
+use Dkarlovi\Dockerfile\Amendable\AmendableTrait;
+use Dkarlovi\Dockerfile\Amendment;
 use Dkarlovi\Dockerfile\Command;
 use Dkarlovi\Dockerfile\Statement;
 use Webmozart\Assert\Assert;
@@ -22,6 +24,8 @@ use Webmozart\Assert\Assert;
  */
 class Entrypoint implements Statement
 {
+    use AmendableTrait;
+
     /**
      * @var Command
      */
@@ -56,5 +60,29 @@ class Entrypoint implements Statement
         $command = Command::build($spec['command']);
 
         return new self($command);
+    }
+
+    /**
+     * @return string
+     */
+    public function getIntent(): string
+    {
+        // TODO: Implement getIntent() method.
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAmendmentBody()
+    {
+        // TODO: Implement getAmendmentBody() method.
+    }
+
+    /**
+     * @param Amendment $amendment
+     */
+    protected function amendSelfBy(Amendment $amendment): void
+    {
+        // TODO: Implement amendSelfBy() method.
     }
 }
