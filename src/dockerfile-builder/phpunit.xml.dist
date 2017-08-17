@@ -16,7 +16,10 @@
     </testsuites>
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
-            <directory suffix=".php">./Dockerfile</directory>
+            <directory suffix=".php">./Dockerfile/Builder</directory>
+            <exclude>
+                <directory>./Dockerfile/Builder/Test</directory>
+            </exclude>
         </whitelist>
     </filter>
 </phpunit>

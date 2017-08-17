@@ -17,6 +17,9 @@
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
             <directory suffix=".php">./Dockerfile</directory>
+            <exclude>
+                <directory>./Dockerfile/Test</directory>
+            </exclude>
         </whitelist>
     </filter>
 </phpunit>
