@@ -27,15 +27,15 @@ class BuilderTest extends TestCase
      * @covers       \Dkarlovi\Dockerfile\Dockerfile::build()
      * @covers       \Dkarlovi\Dockerfile\Stage::build()
      * @covers       \Dkarlovi\Dockerfile\StatementFactory::build()
-     * @covers       \Dkarlovi\Dockerfile\Statement\Comment::build()
-     * @covers       \Dkarlovi\Dockerfile\Statement\Copy::build()
-     * @covers       \Dkarlovi\Dockerfile\Statement\Entrypoint::build()
-     * @covers       \Dkarlovi\Dockerfile\Statement\Env::build()
-     * @covers       \Dkarlovi\Dockerfile\Statement\From::build()
-     * @covers       \Dkarlovi\Dockerfile\Statement\Healthcheck::build()
-     * @covers       \Dkarlovi\Dockerfile\Statement\Run::build()
-     * @covers       \Dkarlovi\Dockerfile\Statement\Workdir::build()
      *
+     * @uses         \Dkarlovi\Dockerfile\Statement\Comment::build()
+     * @uses         \Dkarlovi\Dockerfile\Statement\Copy::build()
+     * @uses         \Dkarlovi\Dockerfile\Statement\Entrypoint::build()
+     * @uses         \Dkarlovi\Dockerfile\Statement\Env::build()
+     * @uses         \Dkarlovi\Dockerfile\Statement\From::build()
+     * @uses         \Dkarlovi\Dockerfile\Statement\Healthcheck::build()
+     * @uses         \Dkarlovi\Dockerfile\Statement\Run::build()
+     * @uses         \Dkarlovi\Dockerfile\Statement\Workdir::build()
      * @uses         \Dkarlovi\Dockerfile\Builder::__construct
      * @uses         \Dkarlovi\Dockerfile\Dockerfile::__construct
      * @uses         \Dkarlovi\Dockerfile\Dockerfile::dump
