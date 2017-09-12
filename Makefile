@@ -13,10 +13,10 @@ validate-cs:
 	vendor/bin/php-cs-fixer fix -vvv --diff --dry-run
 
 phpunit:
-	vendor/bin/phpunit
+	vendor/bin/phpunit --testdox
 
 phpunit-coverage:
-	vendor/bin/phpunit --coverage-text --coverage-clover build/logs/clover.xml
+	vendor/bin/phpunit --testdox --coverage-text --coverage-clover build/logs/clover.xml
 
 phpstan:
 	vendor/bin/phpstan analyse . --level 7 --configuration phpstan.neon

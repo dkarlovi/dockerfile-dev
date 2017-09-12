@@ -31,7 +31,7 @@ class Comment implements Statement
     private $content;
 
     /**
-     * @param $content
+     * @param string $content
      */
     public function __construct(string $content)
     {
@@ -63,7 +63,7 @@ class Comment implements Statement
      */
     public function getIntent(): string
     {
-        // TODO: Implement getIdentifier() method.
+        return $this->content;
     }
 
     /**
@@ -71,7 +71,7 @@ class Comment implements Statement
      */
     public function getAmendmentBody()
     {
-        // TODO: Implement getAmendmentBody() method.
+        return $this->content;
     }
 
     /**

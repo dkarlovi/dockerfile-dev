@@ -37,6 +37,79 @@ class CommentTest extends TestCase
     }
 
     /**
+     * @dataProvider getBuildFixtures
+     * @covers       \Dkarlovi\Dockerfile\Statement\Comment::build
+     * @covers       \Dkarlovi\Dockerfile\Statement\Comment::dump
+     *
+     * @uses         \Dkarlovi\Dockerfile\Statement\Comment::__construct
+     *
+     * @param array  $spec
+     * @param string $fixture
+     */
+    public function testCanBuildAStatement(array $spec, string $fixture): void
+    {
+        $comment = Comment::build($spec);
+
+        static::assertEquals($fixture, $comment->dump());
+    }
+
+    /**
+     * @covers \Dkarlovi\Dockerfile\Statement\Comment::build
+     */
+    public function testWhenBuildingAStatementTheContentPropertyIsRequired(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Comment requires a "content" property');
+
+        Comment::build([]);
+    }
+
+    /**
+     * @covers \Dkarlovi\Dockerfile\Statement\Comment::getIntent
+     *
+     * @uses   \Dkarlovi\Dockerfile\Statement\Comment::__construct
+     */
+    public function testStatementIntentIsContent(): void
+    {
+        $comment = new Comment('foo');
+
+        static::assertEquals('foo', $comment->getIntent());
+    }
+
+    /**
+     * @covers \Dkarlovi\Dockerfile\Statement\Comment::getAmendmentBody
+     *
+     * @uses   \Dkarlovi\Dockerfile\Statement\Comment::__construct
+     */
+    public function testAmendmentBodyIsContent(): void
+    {
+        $comment = new Comment('foo');
+
+        static::assertEquals('foo', $comment->getAmendmentBody());
+    }
+
+    /**
+     * @covers \Dkarlovi\Dockerfile\Statement\Comment::amendBy
+     * @covers \Dkarlovi\Dockerfile\Statement\Comment::<protected>
+     *
+     * @uses   \Dkarlovi\Dockerfile\Statement\Comment::__construct
+     * @uses   \Dkarlovi\Dockerfile\Statement\Comment::dump
+     * @uses   \Dkarlovi\Dockerfile\Statement\Comment::getAmendmentBody
+     * @uses   \Dkarlovi\Dockerfile\Statement\Comment::getIntent
+     * @uses   \Dkarlovi\Dockerfile\Statement\Comment::isApplicableTo
+     */
+    public function testCanAmendStatementByAmendment(): void
+    {
+        $this->markTestSkipped('Skipped until figuring out how to address previous comment');
+
+        $statement = new Comment('foo');
+        $amendment = new Comment('bar');
+        $statement->amendBy($amendment);
+
+        static::assertEquals("# foo\n# bar", $statement->dump());
+    }
+
+    /**
      * @return array
      */
     public function getConstructFixtures(): array
@@ -44,6 +117,17 @@ class CommentTest extends TestCase
         return [
             ['foo', '# foo'],
             ["foo\nbar", "# foo\n# bar"],
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    public function getBuildFixtures(): array
+    {
+        return [
+            [['content' => 'foo'], '# foo'],
+            [['content' => "foo\nbar"], "# foo\n# bar"],
         ];
     }
 }
