@@ -69,11 +69,13 @@ class CommentTest extends TestCase
      *
      * @uses   \Dkarlovi\Dockerfile\Statement\Comment::__construct
      */
-    public function testStatementIntentIsContent(): void
+    public function testStatementIntentIsContentUntilFirstNewline(): void
     {
-        $comment = new Comment('foo');
+        $comment1 = new Comment('foo bar');
+        static::assertEquals('foo bar', $comment1->getIntent());
 
-        static::assertEquals('foo', $comment->getIntent());
+        $comment2 = new Comment("foo\nbar");
+        static::assertEquals('foo', $comment2->getIntent());
     }
 
     /**
@@ -81,11 +83,29 @@ class CommentTest extends TestCase
      *
      * @uses   \Dkarlovi\Dockerfile\Statement\Comment::__construct
      */
-    public function testAmendmentBodyIsContent(): void
+    public function testAmendmentBodyIsContentAfterFirstNewline(): void
     {
-        $comment = new Comment('foo');
+        $comment1 = new Comment('foo bar');
+        static::assertEquals('foo bar', $comment1->getAmendmentBody());
 
-        static::assertEquals('foo', $comment->getAmendmentBody());
+        $comment2 = new Comment("foo\nbar");
+        static::assertEquals('bar', $comment2->getAmendmentBody());
+    }
+
+    /**
+     * @covers \Dkarlovi\Dockerfile\Statement\Comment::isApplicableTo
+     *
+     * @uses   \Dkarlovi\Dockerfile\Statement\Comment::__construct
+     * @uses   \Dkarlovi\Dockerfile\Statement\Comment::getIntent
+     */
+    public function testAmendmentIsApplicableIfIntentIsInContent(): void
+    {
+        $statement = new Comment('foo');
+        $amendment1 = new Comment("foo\nbar");
+        static::assertTrue($statement->isApplicableTo($amendment1));
+
+        $amendment2 = new Comment("bar\nfoo");
+        static::assertFalse($statement->isApplicableTo($amendment2));
     }
 
     /**
@@ -100,13 +120,13 @@ class CommentTest extends TestCase
      */
     public function testCanAmendStatementByAmendment(): void
     {
-        $this->markTestSkipped('Skipped until figuring out how to address previous comment');
-
         $statement = new Comment('foo');
-        $amendment = new Comment('bar');
-        $statement->amendBy($amendment);
+        $amendment1 = new Comment("foo\nbar");
+        $amendment2 = new Comment("foo\nbat");
+        $statement->amendBy($amendment1);
+        $statement->amendBy($amendment2);
 
-        static::assertEquals("# foo\n# bar", $statement->dump());
+        static::assertEquals("# foo\n# bar\n# bat", $statement->dump());
     }
 
     /**

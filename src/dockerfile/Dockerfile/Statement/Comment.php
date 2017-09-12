@@ -13,7 +13,6 @@ declare(strict_types = 1);
 
 namespace Dkarlovi\Dockerfile\Statement;
 
-use Dkarlovi\Dockerfile\Amendable\AmendableTrait;
 use Dkarlovi\Dockerfile\Amendment;
 use Dkarlovi\Dockerfile\Statement;
 use Webmozart\Assert\Assert;
@@ -23,8 +22,6 @@ use Webmozart\Assert\Assert;
  */
 class Comment implements Statement
 {
-    use AmendableTrait;
-
     /**
      * @var string
      */
@@ -63,7 +60,11 @@ class Comment implements Statement
      */
     public function getIntent(): string
     {
-        return $this->content;
+        if (false === ($idx = \mb_strpos($this->content, "\n"))) {
+            return $this->content;
+        }
+
+        return \mb_substr($this->content, 0, $idx);
     }
 
     /**
@@ -71,14 +72,29 @@ class Comment implements Statement
      */
     public function getAmendmentBody()
     {
-        return $this->content;
+        if (false === ($idx = \mb_strpos($this->content, "\n"))) {
+            return $this->content;
+        }
+
+        return \mb_substr($this->content, $idx + 1);
+    }
+
+    /**
+     * @param Amendment $amendment
+     *
+     * @return bool
+     */
+    public function isApplicableTo(Amendment $amendment): bool
+    {
+        return $amendment instanceof static
+            && false !== \mb_strpos($this->content, $amendment->getIntent());
     }
 
     /**
      * @param Amendment $amendment
      */
-    protected function amendSelfBy(Amendment $amendment): void
+    public function amendBy(Amendment $amendment): void
     {
-        // TODO: Implement amendSelfBy() method.
+        $this->content .= "\n".$amendment->getAmendmentBody();
     }
 }
