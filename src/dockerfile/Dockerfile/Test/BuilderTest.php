@@ -23,7 +23,7 @@ class BuilderTest extends TestCase
 {
     /**
      * @covers       \Dkarlovi\Dockerfile\Builder::build()
-     * @covers       \Dkarlovi\Dockerfile\Command::build()
+     * @covers       \Dkarlovi\Dockerfile\DockerfileCommand::build()
      * @covers       \Dkarlovi\Dockerfile\Dockerfile::build()
      * @covers       \Dkarlovi\Dockerfile\Stage::build()
      * @covers       \Dkarlovi\Dockerfile\StatementFactory::build()
@@ -42,9 +42,9 @@ class BuilderTest extends TestCase
      * @uses         \Dkarlovi\Dockerfile\Stage::__construct
      * @uses         \Dkarlovi\Dockerfile\Stage::dump
      * @uses         \Dkarlovi\Dockerfile\Stage::<private>
-     * @uses         \Dkarlovi\Dockerfile\Command::__construct
-     * @uses         \Dkarlovi\Dockerfile\Command::dump
-     * @uses         \Dkarlovi\Dockerfile\Command::dumpSchema
+     * @uses         \Dkarlovi\Dockerfile\DockerfileCommand::__construct
+     * @uses         \Dkarlovi\Dockerfile\DockerfileCommand::dump
+     * @uses         \Dkarlovi\Dockerfile\DockerfileCommand::dumpSchema
      * @uses         \Dkarlovi\Dockerfile\Statement\Comment::__construct
      * @uses         \Dkarlovi\Dockerfile\Statement\Comment::dump
      * @uses         \Dkarlovi\Dockerfile\Statement\Copy::__construct

@@ -13,8 +13,8 @@ declare(strict_types = 1);
 
 namespace Dkarlovi\Dockerfile\Test;
 
-use Dkarlovi\Dockerfile\Command;
 use Dkarlovi\Dockerfile\Dockerfile;
+use Dkarlovi\Dockerfile\DockerfileCommand;
 use Dkarlovi\Dockerfile\Stage;
 use Dkarlovi\Dockerfile\Statement\Comment;
 use Dkarlovi\Dockerfile\Statement\Copy;
@@ -64,7 +64,7 @@ class DockerfileTest extends TestCase
                             new Copy(['test1', 'test2'], '/abc'),
                             new Run(
                                 [
-                                    new Command(
+                                    new DockerfileCommand(
                                         'apk add',
                                         [
                                             '--no-cache',
@@ -72,7 +72,7 @@ class DockerfileTest extends TestCase
                                             'php7-redis',
                                         ]
                                     ),
-                                    new Command('date'),
+                                    new DockerfileCommand('date'),
                                 ]
                             ),
                         ]
@@ -105,7 +105,7 @@ class DockerfileTest extends TestCase
                             ),
                             new Run(
                                 [
-                                    new Command(
+                                    new DockerfileCommand(
                                         'apk add',
                                         [
                                             '--update',
@@ -122,23 +122,23 @@ class DockerfileTest extends TestCase
                                             'openssl-dev',
                                         ]
                                     ),
-                                    new Command(
+                                    new DockerfileCommand(
                                         'docker-php-ext-install',
                                         ['intl', 'opcache', 'pcntl', 'pdo_mysql']
                                     ),
-                                    new Command(
+                                    new DockerfileCommand(
                                         'pecl install',
                                         ['apcu', 'igbinary', 'xdebug']
                                     ),
-                                    new Command(
+                                    new DockerfileCommand(
                                         'docker-php-ext-enable',
                                         ['apcu', 'igbinary', 'xdebug']
                                     ),
-                                    new Command(
+                                    new DockerfileCommand(
                                         'apk del',
                                         ['autoconf', 'g++', 'icu-dev', 'make', 'cmake', 'openssl-dev']
                                     ),
-                                    new Command(
+                                    new DockerfileCommand(
                                         'rm -rf',
                                         [
                                             '/tmp/pear',
@@ -158,7 +158,7 @@ class DockerfileTest extends TestCase
                             new Copy('etc', '/app/etc'),
                             new Run(
                                 [
-                                    new Command('chown -R www-data', ['/app/var']),
+                                    new DockerfileCommand('chown -R www-data', ['/app/var']),
                                 ]
                             ),
                             new Copy(
@@ -169,9 +169,9 @@ class DockerfileTest extends TestCase
                                 ['./.infra/docker/app/entrypoint.sh', './.infra/docker/app/docker-healthcheck'],
                                 '/usr/local/bin'
                             ),
-                            new Healthcheck(new Command('docker-healthcheck')),
+                            new Healthcheck(new DockerfileCommand('docker-healthcheck')),
                             new Entrypoint(
-                                new Command(
+                                new DockerfileCommand(
                                     '/sbin/tini',
                                     [
                                         '--',

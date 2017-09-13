@@ -17,6 +17,7 @@ use Dkarlovi\Dockerfile\Amendable\AmendableTrait;
 use Dkarlovi\Dockerfile\AmendableCollection;
 use Dkarlovi\Dockerfile\Amendment;
 use Dkarlovi\Dockerfile\Command;
+use Dkarlovi\Dockerfile\DockerfileCommand;
 use Dkarlovi\Dockerfile\Exception;
 use Dkarlovi\Dockerfile\Statement;
 use Webmozart\Assert\Assert;
@@ -36,7 +37,7 @@ class Run implements AmendableCollection, Statement
     /**
      * Run constructor.
      *
-     * @param \Dkarlovi\Dockerfile\Command[] $commands
+     * @param Command[] $commands
      */
     public function __construct(array $commands)
     {
@@ -67,7 +68,7 @@ class Run implements AmendableCollection, Statement
 
         $commands = [];
         foreach ($spec['commands'] as $command) {
-            $commands[] = Command::build($command);
+            $commands[] = DockerfileCommand::build($command);
         }
 
         return new self($commands);
