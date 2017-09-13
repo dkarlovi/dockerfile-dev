@@ -13,7 +13,7 @@ declare(strict_types = 1);
 
 namespace Dkarlovi\Dockerfile\Test\Statement;
 
-use Dkarlovi\Dockerfile\DockerfileCommand;
+use Dkarlovi\Dockerfile\Command;
 use Dkarlovi\Dockerfile\Statement\Entrypoint;
 use PHPUnit\Framework\TestCase;
 
@@ -38,6 +38,77 @@ class EntrypointTest extends TestCase
     }
 
     /**
+     * @dataProvider getBuildFixtures
+     * @covers       \Dkarlovi\Dockerfile\Statement\Entrypoint::build
+     * @covers       \Dkarlovi\Dockerfile\Statement\Entrypoint::dump
+     *
+     * @uses         \Dkarlovi\Dockerfile\Statement\Entrypoint::__construct
+     * @uses         \Dkarlovi\Dockerfile\DockerfileCommand
+     *
+     * @param array  $spec
+     * @param string $fixture
+     */
+    public function testCanBuildAStatement(array $spec, string $fixture): void
+    {
+        $entrypoint = Entrypoint::build($spec);
+
+        static::assertEquals($fixture, $entrypoint->dump());
+    }
+
+    /**
+     * @covers \Dkarlovi\Dockerfile\Statement\Entrypoint::build
+     */
+    public function testWhenBuildingAStatementTheCommandPropertyIsRequired(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Entrypoint requires a "command" property');
+
+        Entrypoint::build([]);
+    }
+
+    /**
+     * @covers \Dkarlovi\Dockerfile\Statement\Entrypoint::getIntent
+     *
+     * @uses   \Dkarlovi\Dockerfile\Statement\Entrypoint::__construct
+     */
+    public function testStatementIntentIsFullyQualifiedClassName(): void
+    {
+        $entrypoint = new Entrypoint($this->mockCommand());
+        static::assertEquals(Entrypoint::class, $entrypoint->getIntent());
+    }
+
+    /**
+     * @covers \Dkarlovi\Dockerfile\Statement\Entrypoint::getAmendmentBody
+     *
+     * @uses   \Dkarlovi\Dockerfile\Statement\Entrypoint::__construct
+     */
+    public function testAmendmentBodyIsImage(): void
+    {
+        $command = $this->mockCommand();
+        $entrypoint = new Entrypoint($command);
+        static::assertEquals($command, $entrypoint->getAmendmentBody());
+    }
+
+    /**
+     * @covers \Dkarlovi\Dockerfile\Statement\Entrypoint::amendBy
+     * @covers \Dkarlovi\Dockerfile\Statement\Entrypoint::<protected>
+     *
+     * @uses   \Dkarlovi\Dockerfile\Statement\Entrypoint::__construct
+     * @uses   \Dkarlovi\Dockerfile\Statement\Entrypoint::dump
+     * @uses   \Dkarlovi\Dockerfile\Statement\Entrypoint::getAmendmentBody
+     * @uses   \Dkarlovi\Dockerfile\Statement\Entrypoint::getIntent
+     * @uses   \Dkarlovi\Dockerfile\Statement\Entrypoint::isApplicableTo
+     */
+    public function testCanAmendStatementByAmendment(): void
+    {
+        $statement = new Entrypoint($this->mockCommand('["date"]'));
+        $amendment = new Entrypoint($this->mockCommand('["/usr/local/bin/docker-entry"]'));
+        $statement->amendBy($amendment);
+
+        static::assertEquals('ENTRYPOINT ["/usr/local/bin/docker-entry"]', $statement->dump());
+    }
+
+    /**
      * @return array
      */
     public function getConstructFixtures(): array
@@ -49,21 +120,38 @@ class EntrypointTest extends TestCase
     }
 
     /**
+     * @return array
+     */
+    public function getBuildFixtures(): array
+    {
+        return [
+            [['command' => ['intent' => 'date']], 'ENTRYPOINT ["date"]'],
+            [
+                [
+                    'command' => ['intent' => 'date', 'params' => ['--foo', '--bar']],
+                ],
+                'ENTRYPOINT ["date", "--foo", "--bar"]',
+            ],
+        ];
+    }
+
+    /**
      * @param string $dump
      *
-     * @return DockerfileCommand
+     * @return \PHPUnit_Framework_MockObject_MockObject|Command
      */
-    private function mockCommand(string $dump): DockerfileCommand
+    private function mockCommand(?string $dump = null): Command
     {
-        /** @var \PHPUnit_Framework_MockObject_MockObject|DockerfileCommand $command */
         $command = $this
-            ->getMockBuilder(DockerfileCommand::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $command
-            ->expects(static::once())
-            ->method('dumpSchema')
-            ->willReturn($dump);
+            ->getMockBuilder(Command::class)
+            ->getMockForAbstractClass();
+
+        if (null !== $dump) {
+            $command
+                ->expects(static::any())
+                ->method('dumpSchema')
+                ->willReturn($dump);
+        }
 
         return $command;
     }

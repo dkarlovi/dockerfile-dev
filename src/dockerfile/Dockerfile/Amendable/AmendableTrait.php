@@ -45,7 +45,7 @@ trait AmendableTrait
     public function amendBy(Amendment $amendment): void
     {
         if (false === $this->isApplicableTo($amendment)) {
-            throw new InvalidArgumentException('Not applicable');
+            throw new InvalidArgumentException('Amendment not applicable here');
         }
 
         $this->amendSelfBy($amendment);

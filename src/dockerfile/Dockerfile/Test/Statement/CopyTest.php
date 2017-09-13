@@ -108,12 +108,12 @@ class CopyTest extends TestCase
     /**
      * @covers \Dkarlovi\Dockerfile\Statement\Copy::amendBy
      * @covers \Dkarlovi\Dockerfile\Statement\Copy::<protected>
+     * @covers \Dkarlovi\Dockerfile\Statement\Copy::isApplicableTo
      *
      * @uses   \Dkarlovi\Dockerfile\Statement\Copy::__construct
      * @uses   \Dkarlovi\Dockerfile\Statement\Copy::dump
      * @uses   \Dkarlovi\Dockerfile\Statement\Copy::getAmendmentBody
      * @uses   \Dkarlovi\Dockerfile\Statement\Copy::getIntent
-     * @uses   \Dkarlovi\Dockerfile\Statement\Copy::isApplicableTo
      */
     public function testCanAmendStatementByAmendment(): void
     {

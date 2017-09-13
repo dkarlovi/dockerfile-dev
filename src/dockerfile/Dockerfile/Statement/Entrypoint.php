@@ -68,7 +68,7 @@ class Entrypoint implements Statement
      */
     public function getIntent(): string
     {
-        // TODO: Implement getIntent() method.
+        return self::class;
     }
 
     /**
@@ -76,7 +76,7 @@ class Entrypoint implements Statement
      */
     public function getAmendmentBody()
     {
-        // TODO: Implement getAmendmentBody() method.
+        return $this->command;
     }
 
     /**
@@ -84,6 +84,6 @@ class Entrypoint implements Statement
      */
     protected function amendSelfBy(Amendment $amendment): void
     {
-        // TODO: Implement amendSelfBy() method.
+        $this->command = $amendment->getAmendmentBody();
     }
 }
