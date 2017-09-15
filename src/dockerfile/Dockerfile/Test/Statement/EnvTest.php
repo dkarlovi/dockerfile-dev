@@ -38,6 +38,86 @@ class EnvTest extends TestCase
     }
 
     /**
+     * @dataProvider getBuildFixtures
+     * @covers       \Dkarlovi\Dockerfile\Statement\Env::build
+     * @covers       \Dkarlovi\Dockerfile\Statement\Env::dump
+     *
+     * @uses         \Dkarlovi\Dockerfile\Statement\Env::__construct
+     *
+     * @param array  $spec
+     * @param string $fixture
+     */
+    public function testCanBuildAStatement(array $spec, string $fixture): void
+    {
+        $env = Env::build($spec);
+
+        static::assertEquals($fixture, $env->dump());
+    }
+
+    /**
+     * @covers \Dkarlovi\Dockerfile\Statement\Env::build
+     */
+    public function testWhenBuildingAStatementTheNamePropertyIsRequired(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Env requires a "name" property');
+
+        Env::build([]);
+    }
+
+    /**
+     * @covers \Dkarlovi\Dockerfile\Statement\Env::build
+     */
+    public function testWhenBuildingAStatementTheValuePropertyIsRequired(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Env requires a "value" property');
+
+        Env::build(['name' => 'foo']);
+    }
+
+    /**
+     * @covers \Dkarlovi\Dockerfile\Statement\Env::getIntent
+     *
+     * @uses   \Dkarlovi\Dockerfile\Statement\Env::__construct
+     */
+    public function testStatementIntentIsName(): void
+    {
+        $env = new Env('foo', '/app/bar');
+        static::assertEquals('foo', $env->getIntent());
+    }
+
+    /**
+     * @covers \Dkarlovi\Dockerfile\Statement\Env::getAmendmentBody
+     *
+     * @uses   \Dkarlovi\Dockerfile\Statement\Env::__construct
+     */
+    public function testAmendmentBodyIsValue(): void
+    {
+        $env = new Env('foo', '/app/bar');
+        static::assertEquals('/app/bar', $env->getAmendmentBody());
+    }
+
+    /**
+     * @covers \Dkarlovi\Dockerfile\Statement\Env::amendBy
+     * @covers \Dkarlovi\Dockerfile\Statement\Env::<protected>
+     * @covers \Dkarlovi\Dockerfile\Statement\Env::isApplicableTo
+     *
+     * @uses   \Dkarlovi\Dockerfile\Statement\Env::__construct
+     * @uses   \Dkarlovi\Dockerfile\Statement\Env::dump
+     * @uses   \Dkarlovi\Dockerfile\Statement\Env::getAmendmentBody
+     * @uses   \Dkarlovi\Dockerfile\Statement\Env::getIntent
+     */
+    public function testCanAmendStatementByAmendment(): void
+    {
+        $statement = new Env('foo', '/app/bar');
+        $amendment = new Env('foo', '/app/bat');
+        $statement->amendBy($amendment);
+
+        static::assertEquals('ENV foo /app/bat', $statement->dump());
+    }
+
+    /**
      * @return array
      */
     public function getConstructFixtures(): array
@@ -46,6 +126,18 @@ class EnvTest extends TestCase
             ['abc', '/app/abc', 'ENV abc /app/abc'],
             ['abc', 123, 'ENV abc 123'],
             ['abc', 12.3, 'ENV abc 12.3'],
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    public function getBuildFixtures(): array
+    {
+        return [
+            [['name' => 'abc', 'value' => '/app/abc'], 'ENV abc /app/abc'],
+            [['name' => 'abc', 'value' => 123], 'ENV abc 123'],
+            [['name' => 'abc', 'value' => 12.3], 'ENV abc 12.3'],
         ];
     }
 }

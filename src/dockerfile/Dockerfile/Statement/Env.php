@@ -71,7 +71,7 @@ class Env implements Statement
      */
     public function getIntent(): string
     {
-        // TODO: Implement getIntent() method.
+        return $this->name;
     }
 
     /**
@@ -79,7 +79,7 @@ class Env implements Statement
      */
     public function getAmendmentBody()
     {
-        // TODO: Implement getAmendmentBody() method.
+        return $this->value;
     }
 
     /**
@@ -87,6 +87,6 @@ class Env implements Statement
      */
     protected function amendSelfBy(Amendment $amendment): void
     {
-        // TODO: Implement amendSelfBy() method.
+        $this->value = $amendment->getAmendmentBody();
     }
 }
