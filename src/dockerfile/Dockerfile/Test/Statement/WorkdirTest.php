@@ -2,13 +2,22 @@
 
 declare(strict_types = 1);
 
+/*
+ * This file is part of Dockerfile.
+ *
+ * (c) Dalibor Karlović <dkarlovi@gmail.com>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace Dkarlovi\Dockerfile\Test\Statement;
 
 use Dkarlovi\Dockerfile\Statement\Workdir;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class WorkdirTest
+ * Class WorkdirTest.
  */
 class WorkdirTest extends TestCase
 {
