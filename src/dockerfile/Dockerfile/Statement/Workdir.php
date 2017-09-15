@@ -65,7 +65,7 @@ class Workdir implements Statement
      */
     public function getIntent(): string
     {
-        // TODO: Implement getIntent() method.
+        return self::class;
     }
 
     /**
@@ -73,7 +73,7 @@ class Workdir implements Statement
      */
     public function getAmendmentBody()
     {
-        // TODO: Implement getAmendmentBody() method.
+        return $this->dir;
     }
 
     /**
@@ -81,6 +81,6 @@ class Workdir implements Statement
      */
     protected function amendSelfBy(Amendment $amendment): void
     {
-        // TODO: Implement amendSelfBy() method.
+        $this->dir = $amendment->getAmendmentBody();
     }
 }
