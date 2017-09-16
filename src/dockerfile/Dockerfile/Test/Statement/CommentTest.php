@@ -93,7 +93,7 @@ class CommentTest extends TestCase
     }
 
     /**
-     * @covers \Dkarlovi\Dockerfile\Statement\Comment::isApplicableTo
+     * @covers \Dkarlovi\Dockerfile\Statement\Comment::isAmendableWith
      *
      * @uses   \Dkarlovi\Dockerfile\Statement\Comment::__construct
      * @uses   \Dkarlovi\Dockerfile\Statement\Comment::getIntent
@@ -102,29 +102,29 @@ class CommentTest extends TestCase
     {
         $statement = new Comment('foo');
         $amendment1 = new Comment("foo\nbar");
-        static::assertTrue($statement->isApplicableTo($amendment1));
+        static::assertTrue($statement->isAmendableWith($amendment1));
 
         $amendment2 = new Comment("bar\nfoo");
-        static::assertFalse($statement->isApplicableTo($amendment2));
+        static::assertFalse($statement->isAmendableWith($amendment2));
     }
 
     /**
-     * @covers \Dkarlovi\Dockerfile\Statement\Comment::amendBy
+     * @covers \Dkarlovi\Dockerfile\Statement\Comment::amendWith
      * @covers \Dkarlovi\Dockerfile\Statement\Comment::<protected>
      *
      * @uses   \Dkarlovi\Dockerfile\Statement\Comment::__construct
      * @uses   \Dkarlovi\Dockerfile\Statement\Comment::dump
      * @uses   \Dkarlovi\Dockerfile\Statement\Comment::getAmendmentBody
      * @uses   \Dkarlovi\Dockerfile\Statement\Comment::getIntent
-     * @uses   \Dkarlovi\Dockerfile\Statement\Comment::isApplicableTo
+     * @uses   \Dkarlovi\Dockerfile\Statement\Comment::isAmendableWith
      */
     public function testCanAmendStatementByAmendment(): void
     {
         $statement = new Comment('foo');
         $amendment1 = new Comment("foo\nbar");
         $amendment2 = new Comment("foo\nbat");
-        $statement->amendBy($amendment1);
-        $statement->amendBy($amendment2);
+        $statement->amendWith($amendment1);
+        $statement->amendWith($amendment2);
 
         static::assertEquals("# foo\n# bar\n# bat", $statement->dump());
     }

@@ -25,7 +25,7 @@ use PHPUnit\Framework\TestCase;
 class StageTest extends TestCase
 {
     /**
-     * @covers \Dkarlovi\Dockerfile\Stage::amendFirstBy
+     * @covers \Dkarlovi\Dockerfile\Stage::amendFirstAmendableWith
      * @covers \Dkarlovi\Dockerfile\Stage::<protected>
      * @covers \Dkarlovi\Dockerfile\Stage::<private>
      *
@@ -53,11 +53,11 @@ class StageTest extends TestCase
             [false, false],
         ], $amendment);
         $stage = new Stage($from, $collection);
-        $stage->amendFirstBy($amendment);
+        $stage->amendFirstAmendableWith($amendment);
     }
 
     /**
-     * @covers \Dkarlovi\Dockerfile\Stage::amendLastBy
+     * @covers \Dkarlovi\Dockerfile\Stage::amendLastAmendableWith
      * @covers \Dkarlovi\Dockerfile\Stage::<protected>
      * @covers \Dkarlovi\Dockerfile\Stage::<private>
      *
@@ -85,7 +85,7 @@ class StageTest extends TestCase
             [false, false],
         ], $amendment);
         $stage = new Stage($from, $collection);
-        $stage->amendLastBy($amendment);
+        $stage->amendLastAmendableWith($amendment);
     }
 
     /**
@@ -101,22 +101,22 @@ class StageTest extends TestCase
             /** @var \PHPUnit_Framework_MockObject_MockObject|Amendment $amendable */
             $amendable = $this
                 ->getMockBuilder(Amendment::class)
-                ->setMethods(['isApplicableTo', 'amendBy'])
+                ->setMethods(['isAmendableWith', 'amendWith'])
                 ->getMockForAbstractClass();
             $amendable
                 ->expects(static::any())
-                ->method('isApplicableTo')
+                ->method('isAmendableWith')
                 ->with($amendment)
                 ->willReturn($applicable);
             if (true === $amend) {
                 $amendable
                     ->expects(static::once())
-                    ->method('amendBy')
+                    ->method('amendWith')
                     ->with($amendment);
             } else {
                 $amendable
                     ->expects(static::never())
-                    ->method('amendBy')
+                    ->method('amendWith')
                     ->with($amendment);
             }
             $collection[] = $amendable;

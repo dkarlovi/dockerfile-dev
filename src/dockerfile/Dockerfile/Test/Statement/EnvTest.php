@@ -99,9 +99,9 @@ class EnvTest extends TestCase
     }
 
     /**
-     * @covers \Dkarlovi\Dockerfile\Statement\Env::amendBy
+     * @covers \Dkarlovi\Dockerfile\Statement\Env::amendWith
+     * @covers \Dkarlovi\Dockerfile\Statement\Env::isAmendableWith
      * @covers \Dkarlovi\Dockerfile\Statement\Env::<protected>
-     * @covers \Dkarlovi\Dockerfile\Statement\Env::isApplicableTo
      *
      * @uses   \Dkarlovi\Dockerfile\Statement\Env::__construct
      * @uses   \Dkarlovi\Dockerfile\Statement\Env::dump
@@ -112,7 +112,7 @@ class EnvTest extends TestCase
     {
         $statement = new Env('foo', '/app/bar');
         $amendment = new Env('foo', '/app/bat');
-        $statement->amendBy($amendment);
+        $statement->amendWith($amendment);
 
         static::assertEquals('ENV foo /app/bat', $statement->dump());
     }

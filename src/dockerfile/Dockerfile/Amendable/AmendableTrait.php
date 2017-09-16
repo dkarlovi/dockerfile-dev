@@ -31,7 +31,7 @@ trait AmendableTrait
      *
      * @return bool
      */
-    public function isApplicableTo(Amendment $amendment): bool
+    public function isAmendableWith(Amendment $amendment): bool
     {
         return $amendment instanceof static
             && $amendment->getIntent() === $this->getIntent();
@@ -42,17 +42,17 @@ trait AmendableTrait
      *
      * @throws InvalidArgumentException
      */
-    public function amendBy(Amendment $amendment): void
+    public function amendWith(Amendment $amendment): void
     {
-        if (false === $this->isApplicableTo($amendment)) {
+        if (false === $this->isAmendableWith($amendment)) {
             throw new InvalidArgumentException('Amendment not applicable here');
         }
 
-        $this->amendSelfBy($amendment);
+        $this->amendSelfWith($amendment);
     }
 
     /**
      * @param Amendment $amendment
      */
-    abstract protected function amendSelfBy(Amendment $amendment): void;
+    abstract protected function amendSelfWith(Amendment $amendment): void;
 }

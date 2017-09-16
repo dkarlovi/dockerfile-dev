@@ -106,9 +106,9 @@ class CopyTest extends TestCase
     }
 
     /**
-     * @covers \Dkarlovi\Dockerfile\Statement\Copy::amendBy
+     * @covers \Dkarlovi\Dockerfile\Statement\Copy::amendWith()
+     * @covers \Dkarlovi\Dockerfile\Statement\Copy::isAmendableWith
      * @covers \Dkarlovi\Dockerfile\Statement\Copy::<protected>
-     * @covers \Dkarlovi\Dockerfile\Statement\Copy::isApplicableTo
      *
      * @uses   \Dkarlovi\Dockerfile\Statement\Copy::__construct
      * @uses   \Dkarlovi\Dockerfile\Statement\Copy::dump
@@ -119,7 +119,7 @@ class CopyTest extends TestCase
     {
         $statement = new Copy('foo', '/app/bar');
         $amendment = new Copy('bar', '/app/bar');
-        $statement->amendBy($amendment);
+        $statement->amendWith($amendment);
 
         static::assertEquals('COPY foo bar /app/bar/', $statement->dump());
     }

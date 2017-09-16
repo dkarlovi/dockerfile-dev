@@ -79,7 +79,7 @@ class Workdir implements Statement
     /**
      * @param Amendment $amendment
      */
-    protected function amendSelfBy(Amendment $amendment): void
+    protected function amendSelfWith(Amendment $amendment): void
     {
         $this->dir = $amendment->getAmendmentBody();
     }

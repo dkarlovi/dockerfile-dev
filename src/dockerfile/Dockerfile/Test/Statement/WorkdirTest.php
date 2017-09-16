@@ -88,9 +88,9 @@ class WorkdirTest extends TestCase
     }
 
     /**
-     * @covers \Dkarlovi\Dockerfile\Statement\Workdir::amendBy
+     * @covers \Dkarlovi\Dockerfile\Statement\Workdir::amendWith
+     * @covers \Dkarlovi\Dockerfile\Statement\Workdir::isAmendableWith
      * @covers \Dkarlovi\Dockerfile\Statement\Workdir::<protected>
-     * @covers \Dkarlovi\Dockerfile\Statement\Workdir::isApplicableTo
      *
      * @uses   \Dkarlovi\Dockerfile\Statement\Workdir::__construct
      * @uses   \Dkarlovi\Dockerfile\Statement\Workdir::dump
@@ -101,7 +101,7 @@ class WorkdirTest extends TestCase
     {
         $statement = new Workdir('/app/bar');
         $amendment = new Workdir('/app/bat');
-        $statement->amendBy($amendment);
+        $statement->amendWith($amendment);
 
         static::assertEquals('WORKDIR /app/bat', $statement->dump());
     }

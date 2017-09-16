@@ -27,7 +27,7 @@ trait AmendableCollectionTrait
      *
      * @throws Exception\InvalidArgumentException
      */
-    public function amendFirstBy(Amendment $amendment): void
+    public function amendFirstAmendableWith(Amendment $amendment): void
     {
         $collection = $this->getAmendableCollection();
 
@@ -39,7 +39,7 @@ trait AmendableCollectionTrait
      *
      * @throws Exception\InvalidArgumentException
      */
-    public function amendLastBy(Amendment $amendment): void
+    public function amendLastAmendableWith(Amendment $amendment): void
     {
         $collection = $this->getAmendableCollection();
         \rsort($collection);
@@ -59,8 +59,8 @@ trait AmendableCollectionTrait
     private function amend(Amendment $amendment, $collection): void
     {
         foreach ($collection as $amendable) {
-            if (true === $amendable->isApplicableTo($amendment)) {
-                $amendable->amendBy($amendment);
+            if (true === $amendable->isAmendableWith($amendment)) {
+                $amendable->amendWith($amendment);
 
                 return;
             }

@@ -82,7 +82,7 @@ class Entrypoint implements Statement
     /**
      * @param Amendment $amendment
      */
-    protected function amendSelfBy(Amendment $amendment): void
+    protected function amendSelfWith(Amendment $amendment): void
     {
         $this->command = $amendment->getAmendmentBody();
     }

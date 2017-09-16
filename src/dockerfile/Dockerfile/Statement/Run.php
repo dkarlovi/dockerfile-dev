@@ -94,7 +94,7 @@ class Run implements AmendableCollection, Statement
     /**
      * @param Amendment $amendment
      */
-    protected function amendSelfBy(Amendment $amendment): void
+    protected function amendSelfWith(Amendment $amendment): void
     {
         // TODO: Implement amendSelfBy() method.
     }

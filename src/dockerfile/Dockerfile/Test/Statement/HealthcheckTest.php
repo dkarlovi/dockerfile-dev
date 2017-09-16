@@ -91,20 +91,20 @@ class HealthcheckTest extends TestCase
     }
 
     /**
-     * @covers \Dkarlovi\Dockerfile\Statement\Healthcheck::amendBy
+     * @covers \Dkarlovi\Dockerfile\Statement\Healthcheck::amendWith
      * @covers \Dkarlovi\Dockerfile\Statement\Healthcheck::<protected>
      *
      * @uses   \Dkarlovi\Dockerfile\Statement\Healthcheck::__construct
      * @uses   \Dkarlovi\Dockerfile\Statement\Healthcheck::dump
      * @uses   \Dkarlovi\Dockerfile\Statement\Healthcheck::getAmendmentBody
      * @uses   \Dkarlovi\Dockerfile\Statement\Healthcheck::getIntent
-     * @uses   \Dkarlovi\Dockerfile\Statement\Healthcheck::isApplicableTo
+     * @uses   \Dkarlovi\Dockerfile\Statement\Healthcheck::isAmendableWith
      */
     public function testCanAmendStatementByAmendment(): void
     {
         $statement = new Healthcheck($this->mockCommand(['schema' => '["date"]']));
         $amendment = new Healthcheck($this->mockCommand(['schema' => '["/usr/local/bin/docker-entry"]']));
-        $statement->amendBy($amendment);
+        $statement->amendWith($amendment);
 
         static::assertEquals('HEALTHCHECK CMD ["/usr/local/bin/docker-entry"]', $statement->dump());
     }

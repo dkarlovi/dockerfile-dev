@@ -23,12 +23,12 @@ interface Amendment
      *
      * @return bool
      */
-    public function isApplicableTo(Amendment $amendment): bool;
+    public function isAmendableWith(Amendment $amendment): bool;
 
     /**
      * @param Amendment $amendment
      */
-    public function amendBy(Amendment $amendment): void;
+    public function amendWith(Amendment $amendment): void;
 
     /**
      * @return string

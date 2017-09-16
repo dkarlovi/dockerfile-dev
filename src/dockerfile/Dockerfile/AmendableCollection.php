@@ -23,12 +23,12 @@ interface AmendableCollection
      *
      * @throws Exception\InvalidArgumentException
      */
-    public function amendFirstBy(Amendment $amendment);
+    public function amendFirstAmendableWith(Amendment $amendment);
 
     /**
      * @param Amendment $amendment
      *
      * @throws Exception\InvalidArgumentException
      */
-    public function amendLastBy(Amendment $amendment);
+    public function amendLastAmendableWith(Amendment $amendment);
 }

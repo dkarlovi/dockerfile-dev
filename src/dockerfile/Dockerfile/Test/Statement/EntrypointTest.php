@@ -91,20 +91,20 @@ class EntrypointTest extends TestCase
     }
 
     /**
-     * @covers \Dkarlovi\Dockerfile\Statement\Entrypoint::amendBy
+     * @covers \Dkarlovi\Dockerfile\Statement\Entrypoint::amendWith
      * @covers \Dkarlovi\Dockerfile\Statement\Entrypoint::<protected>
      *
      * @uses   \Dkarlovi\Dockerfile\Statement\Entrypoint::__construct
      * @uses   \Dkarlovi\Dockerfile\Statement\Entrypoint::dump
      * @uses   \Dkarlovi\Dockerfile\Statement\Entrypoint::getAmendmentBody
      * @uses   \Dkarlovi\Dockerfile\Statement\Entrypoint::getIntent
-     * @uses   \Dkarlovi\Dockerfile\Statement\Entrypoint::isApplicableTo
+     * @uses   \Dkarlovi\Dockerfile\Statement\Entrypoint::isAmendableWith
      */
     public function testCanAmendStatementByAmendment(): void
     {
         $statement = new Entrypoint($this->mockCommand(['schema' => '["date"]']));
         $amendment = new Entrypoint($this->mockCommand(['schema' => '["/usr/local/bin/docker-entry"]']));
-        $statement->amendBy($amendment);
+        $statement->amendWith($amendment);
 
         static::assertEquals('ENTRYPOINT ["/usr/local/bin/docker-entry"]', $statement->dump());
     }

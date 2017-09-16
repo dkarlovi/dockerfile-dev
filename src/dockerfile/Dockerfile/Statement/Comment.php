@@ -84,7 +84,7 @@ class Comment implements Statement
      *
      * @return bool
      */
-    public function isApplicableTo(Amendment $amendment): bool
+    public function isAmendableWith(Amendment $amendment): bool
     {
         return $amendment instanceof static
             && false !== \mb_strpos($this->content, $amendment->getIntent());
@@ -93,7 +93,7 @@ class Comment implements Statement
     /**
      * @param Amendment $amendment
      */
-    public function amendBy(Amendment $amendment): void
+    public function amendWith(Amendment $amendment): void
     {
         $this->content .= "\n".$amendment->getAmendmentBody();
     }

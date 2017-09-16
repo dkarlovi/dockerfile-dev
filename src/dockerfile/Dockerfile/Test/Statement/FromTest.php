@@ -87,20 +87,20 @@ class FromTest extends TestCase
     }
 
     /**
-     * @covers \Dkarlovi\Dockerfile\Statement\From::amendBy
+     * @covers \Dkarlovi\Dockerfile\Statement\From::amendWith
      * @covers \Dkarlovi\Dockerfile\Statement\From::<protected>
      *
      * @uses   \Dkarlovi\Dockerfile\Statement\From::__construct
      * @uses   \Dkarlovi\Dockerfile\Statement\From::dump
      * @uses   \Dkarlovi\Dockerfile\Statement\From::getAmendmentBody
      * @uses   \Dkarlovi\Dockerfile\Statement\From::getIntent
-     * @uses   \Dkarlovi\Dockerfile\Statement\From::isApplicableTo
+     * @uses   \Dkarlovi\Dockerfile\Statement\From::isAmendableWith
      */
     public function testCanAmendStatementByAmendment(): void
     {
         $statement = new From('alpine:3.6');
         $amendment = new From('alpine:latest');
-        $statement->amendBy($amendment);
+        $statement->amendWith($amendment);
 
         static::assertEquals('FROM alpine:latest', $statement->dump());
     }

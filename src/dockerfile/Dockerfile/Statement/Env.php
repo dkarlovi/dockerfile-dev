@@ -85,7 +85,7 @@ class Env implements Statement
     /**
      * @param Amendment $amendment
      */
-    protected function amendSelfBy(Amendment $amendment): void
+    protected function amendSelfWith(Amendment $amendment): void
     {
         $this->value = $amendment->getAmendmentBody();
     }
