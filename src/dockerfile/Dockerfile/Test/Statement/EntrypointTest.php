@@ -83,7 +83,7 @@ class EntrypointTest extends TestCase
      *
      * @uses   \Dkarlovi\Dockerfile\Statement\Entrypoint::__construct
      */
-    public function testAmendmentBodyIsImage(): void
+    public function testAmendmentBodyIsCommand(): void
     {
         $command = $this->mockCommand();
         $entrypoint = new Entrypoint($command);

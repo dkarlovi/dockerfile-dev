@@ -78,7 +78,7 @@ class Healthcheck implements Statement
      */
     public function getIntent(): string
     {
-        // TODO: Implement getIntent() method.
+        return static::class;
     }
 
     /**
@@ -86,7 +86,7 @@ class Healthcheck implements Statement
      */
     public function getAmendmentBody()
     {
-        // TODO: Implement getAmendmentBody() method.
+        return $this->command;
     }
 
     /**
@@ -94,6 +94,6 @@ class Healthcheck implements Statement
      */
     protected function amendSelfBy(Amendment $amendment): void
     {
-        // TODO: Implement amendSelfBy() method.
+        $this->command = $amendment->getAmendmentBody();
     }
 }
