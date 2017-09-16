@@ -43,6 +43,7 @@ trait CommandMockerTrait
      */
     protected function mockCommand(?array $methods = null): Command
     {
+        /** @var \PHPUnit_Framework_MockObject_MockObject|Command $command */
         $command = $this
             ->getMockBuilder(Command::class)
             ->getMock();
