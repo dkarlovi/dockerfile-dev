@@ -1,6 +1,6 @@
 .PHONY: ci composer cs validate-cs phpunit phpunit-coverage phpstan split
 
-dist: composer cs phpstan phpunit
+dist: composer cs phpstan phpunit phpcpd
 ci: composer validate-cs phpstan phpunit-coverage
 
 composer:
@@ -11,6 +11,9 @@ cs:
 
 validate-cs:
 	vendor/bin/php-cs-fixer fix -vvv --diff --dry-run
+
+phpcpd:
+	vendor/bin/phpcpd . --fuzzy --min-lines=3 --min-tokens=50 --exclude=vendor --exclude=src/dockerfile/vendor --exclude=src/dockerfile-builder/vendor
 
 phpunit:
 	vendor/bin/phpunit --testdox

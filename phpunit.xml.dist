@@ -20,6 +20,7 @@
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
             <directory suffix=".php">./src/dockerfile/Dockerfile</directory>
+            <directory suffix=".php">./src/dockerfile-builder/Dockerfile</directory>
             <exclude>
                 <directory>./src/dockerfile/Dockerfile/Test</directory>
                 <directory>./src/dockerfile-builder/Dockerfile/Builder/Test</directory>
