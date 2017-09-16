@@ -13,7 +13,7 @@ declare(strict_types = 1);
 
 namespace Dkarlovi\Dockerfile\Test\Statement;
 
-use Dkarlovi\Dockerfile\DockerfileCommand;
+use Dkarlovi\Dockerfile\Command;
 use Dkarlovi\Dockerfile\Statement\Run;
 use PHPUnit\Framework\TestCase;
 
@@ -22,6 +22,8 @@ use PHPUnit\Framework\TestCase;
  */
 class RunTest extends TestCase
 {
+    use CommandMockerTrait;
+
     /**
      * @dataProvider getConstructFixtures
      * @covers       \Dkarlovi\Dockerfile\Statement\Run::__construct
@@ -51,35 +53,15 @@ class RunTest extends TestCase
     /**
      * @param string[] $dumps
      *
-     * @return DockerfileCommand[]
+     * @return Command[]
      */
     private function mockCommands(array $dumps): array
     {
         $commands = [];
         foreach ($dumps as $dump) {
-            $commands[] = $this->mockCommand($dump);
+            $commands[] = $this->mockCommand(['dump' => $dump]);
         }
 
         return $commands;
-    }
-
-    /**
-     * @param string $dump
-     *
-     * @return DockerfileCommand
-     */
-    private function mockCommand(string $dump): DockerfileCommand
-    {
-        /** @var \PHPUnit_Framework_MockObject_MockObject|DockerfileCommand $command */
-        $command = $this
-            ->getMockBuilder(DockerfileCommand::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $command
-            ->expects(static::once())
-            ->method('dump')
-            ->willReturn($dump);
-
-        return $command;
     }
 }

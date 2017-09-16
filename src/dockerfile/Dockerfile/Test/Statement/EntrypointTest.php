@@ -13,7 +13,6 @@ declare(strict_types = 1);
 
 namespace Dkarlovi\Dockerfile\Test\Statement;
 
-use Dkarlovi\Dockerfile\Command;
 use Dkarlovi\Dockerfile\Statement\Entrypoint;
 use PHPUnit\Framework\TestCase;
 
@@ -22,6 +21,8 @@ use PHPUnit\Framework\TestCase;
  */
 class EntrypointTest extends TestCase
 {
+    use CommandMockerTrait;
+
     /**
      * @param string $command
      * @param string $fixture
@@ -32,7 +33,7 @@ class EntrypointTest extends TestCase
      */
     public function testCanConstructAStatement(string $command, string $fixture): void
     {
-        $entrypoint = new Entrypoint($this->mockCommand($command));
+        $entrypoint = new Entrypoint($this->mockCommand(['schema' => $command]));
 
         static::assertEquals($fixture, $entrypoint->dump());
     }
@@ -101,8 +102,8 @@ class EntrypointTest extends TestCase
      */
     public function testCanAmendStatementByAmendment(): void
     {
-        $statement = new Entrypoint($this->mockCommand('["date"]'));
-        $amendment = new Entrypoint($this->mockCommand('["/usr/local/bin/docker-entry"]'));
+        $statement = new Entrypoint($this->mockCommand(['schema' => '["date"]']));
+        $amendment = new Entrypoint($this->mockCommand(['schema' => '["/usr/local/bin/docker-entry"]']));
         $statement->amendBy($amendment);
 
         static::assertEquals('ENTRYPOINT ["/usr/local/bin/docker-entry"]', $statement->dump());
@@ -133,26 +134,5 @@ class EntrypointTest extends TestCase
                 'ENTRYPOINT ["date", "--foo", "--bar"]',
             ],
         ];
-    }
-
-    /**
-     * @param string $dump
-     *
-     * @return \PHPUnit_Framework_MockObject_MockObject|Command
-     */
-    private function mockCommand(?string $dump = null): Command
-    {
-        $command = $this
-            ->getMockBuilder(Command::class)
-            ->getMockForAbstractClass();
-
-        if (null !== $dump) {
-            $command
-                ->expects(static::any())
-                ->method('dumpSchema')
-                ->willReturn($dump);
-        }
-
-        return $command;
     }
 }
