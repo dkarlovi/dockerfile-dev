@@ -33,6 +33,8 @@ use PHPUnit\Framework\TestCase;
  */
 class DockerfileTest extends TestCase
 {
+    /** @noinspection PhpMethodNamingConventionInspection */
+
     /**
      * @covers       \Dkarlovi\Dockerfile\Dockerfile::dump()
      * @dataProvider getFixtures

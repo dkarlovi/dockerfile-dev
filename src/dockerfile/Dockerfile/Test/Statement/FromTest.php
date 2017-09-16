@@ -53,6 +53,8 @@ class FromTest extends TestCase
         static::assertEquals($fixture, $from->dump());
     }
 
+    /** @noinspection PhpMethodNamingConventionInspection */
+
     /**
      * @covers \Dkarlovi\Dockerfile\Statement\From::build
      */
@@ -63,6 +65,8 @@ class FromTest extends TestCase
 
         From::build([]);
     }
+
+    /** @noinspection PhpMethodNamingConventionInspection */
 
     /**
      * @covers \Dkarlovi\Dockerfile\Statement\From::getIntent

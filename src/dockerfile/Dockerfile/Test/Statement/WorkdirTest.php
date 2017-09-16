@@ -53,6 +53,8 @@ class WorkdirTest extends TestCase
         static::assertEquals($fixture, $workdir->dump());
     }
 
+    /** @noinspection PhpMethodNamingConventionInspection */
+
     /**
      * @covers \Dkarlovi\Dockerfile\Statement\Workdir::build
      */

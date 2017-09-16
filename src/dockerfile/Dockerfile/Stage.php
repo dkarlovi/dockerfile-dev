@@ -82,6 +82,7 @@ class Stage implements AmendableCollection, Dumpable, Buildable
 
         $statements = null;
         if (true === isset($spec['statements'])) {
+            $statements = [];
             /** @var string[] $statement */
             foreach ($spec['statements'] as $statement) {
                 $statements[] = StatementFactory::build($statement);

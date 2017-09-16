@@ -34,6 +34,8 @@ class BuildCommand extends Command
             ->addArgument('path', InputArgument::REQUIRED, 'Path to YAML specs file');
     }
 
+    /** @noinspection PhpMissingParentCallCommonInspection */
+
     /**
      * {@inheritdoc}
      *

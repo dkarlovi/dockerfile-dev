@@ -55,6 +55,8 @@ class CopyTest extends TestCase
         static::assertEquals($fixture, $copy->dump());
     }
 
+    /** @noinspection PhpMethodNamingConventionInspection */
+
     /**
      * @covers \Dkarlovi\Dockerfile\Statement\Copy::build
      */
@@ -66,6 +68,8 @@ class CopyTest extends TestCase
         Copy::build([]);
     }
 
+    /** @noinspection PhpMethodNamingConventionInspection */
+
     /**
      * @covers \Dkarlovi\Dockerfile\Statement\Copy::build
      */
@@ -76,6 +80,8 @@ class CopyTest extends TestCase
 
         Copy::build(['source' => 'foo']);
     }
+
+    /** @noinspection PhpMethodNamingConventionInspection */
 
     /**
      * @covers \Dkarlovi\Dockerfile\Statement\Copy::getIntent

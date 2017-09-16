@@ -21,6 +21,8 @@ use PHPUnit\Framework\TestCase;
  */
 class BuilderTest extends TestCase
 {
+    /** @noinspection PhpMethodNamingConventionInspection */
+
     /**
      * @covers       \Dkarlovi\Dockerfile\Builder::build()
      * @covers       \Dkarlovi\Dockerfile\DockerfileCommand::build()

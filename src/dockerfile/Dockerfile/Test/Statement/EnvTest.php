@@ -54,6 +54,8 @@ class EnvTest extends TestCase
         static::assertEquals($fixture, $env->dump());
     }
 
+    /** @noinspection PhpMethodNamingConventionInspection */
+
     /**
      * @covers \Dkarlovi\Dockerfile\Statement\Env::build
      */
@@ -64,6 +66,8 @@ class EnvTest extends TestCase
 
         Env::build([]);
     }
+
+    /** @noinspection PhpMethodNamingConventionInspection */
 
     /**
      * @covers \Dkarlovi\Dockerfile\Statement\Env::build

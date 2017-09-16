@@ -56,6 +56,8 @@ class HealthcheckTest extends TestCase
         static::assertEquals($fixture, $healthcheck->dump());
     }
 
+    /** @noinspection PhpMethodNamingConventionInspection */
+
     /**
      * @covers \Dkarlovi\Dockerfile\Statement\Healthcheck::build
      */
@@ -66,6 +68,8 @@ class HealthcheckTest extends TestCase
 
         Healthcheck::build([]);
     }
+
+    /** @noinspection PhpMethodNamingConventionInspection */
 
     /**
      * @covers \Dkarlovi\Dockerfile\Statement\Healthcheck::getIntent
@@ -86,8 +90,8 @@ class HealthcheckTest extends TestCase
     public function testAmendmentBodyIsCommand(): void
     {
         $command = $this->mockCommand();
-        $Healthcheck = new Healthcheck($command);
-        static::assertEquals($command, $Healthcheck->getAmendmentBody());
+        $healthcheck = new Healthcheck($command);
+        static::assertEquals($command, $healthcheck->getAmendmentBody());
     }
 
     /**

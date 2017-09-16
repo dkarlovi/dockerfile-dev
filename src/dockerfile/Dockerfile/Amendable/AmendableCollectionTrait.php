@@ -14,7 +14,6 @@ declare(strict_types = 1);
 namespace Dkarlovi\Dockerfile\Amendable;
 
 use Dkarlovi\Dockerfile\Amendment;
-use Dkarlovi\Dockerfile\Exception;
 use Dkarlovi\Dockerfile\Exception\InvalidArgumentException;
 
 /**
@@ -25,7 +24,7 @@ trait AmendableCollectionTrait
     /**
      * @param Amendment $amendment
      *
-     * @throws Exception\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function amendFirstAmendableWith(Amendment $amendment): void
     {
@@ -37,7 +36,7 @@ trait AmendableCollectionTrait
     /**
      * @param Amendment $amendment
      *
-     * @throws Exception\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function amendLastAmendableWith(Amendment $amendment): void
     {
@@ -55,6 +54,8 @@ trait AmendableCollectionTrait
     /**
      * @param Amendment   $amendment
      * @param Amendment[] $collection
+     *
+     * @throws InvalidArgumentException
      */
     private function amend(Amendment $amendment, $collection): void
     {

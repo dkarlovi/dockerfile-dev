@@ -24,6 +24,8 @@ use PHPUnit\Framework\TestCase;
  */
 class StageTest extends TestCase
 {
+    /** @noinspection PhpMethodNamingConventionInspection */
+
     /**
      * @covers \Dkarlovi\Dockerfile\Stage::amendFirstAmendableWith
      * @covers \Dkarlovi\Dockerfile\Stage::<protected>
@@ -55,6 +57,8 @@ class StageTest extends TestCase
         $stage = new Stage($from, $collection);
         $stage->amendFirstAmendableWith($amendment);
     }
+
+    /** @noinspection PhpMethodNamingConventionInspection */
 
     /**
      * @covers \Dkarlovi\Dockerfile\Stage::amendLastAmendableWith

@@ -53,6 +53,8 @@ class CommentTest extends TestCase
         static::assertEquals($fixture, $comment->dump());
     }
 
+    /** @noinspection PhpMethodNamingConventionInspection */
+
     /**
      * @covers \Dkarlovi\Dockerfile\Statement\Comment::build
      */
@@ -63,6 +65,8 @@ class CommentTest extends TestCase
 
         Comment::build([]);
     }
+
+    /** @noinspection PhpMethodNamingConventionInspection */
 
     /**
      * @covers \Dkarlovi\Dockerfile\Statement\Comment::getIntent
@@ -78,6 +82,8 @@ class CommentTest extends TestCase
         static::assertEquals('foo', $comment2->getIntent());
     }
 
+    /** @noinspection PhpMethodNamingConventionInspection */
+
     /**
      * @covers \Dkarlovi\Dockerfile\Statement\Comment::getAmendmentBody
      *
@@ -91,6 +97,8 @@ class CommentTest extends TestCase
         $comment2 = new Comment("foo\nbar");
         static::assertEquals('bar', $comment2->getAmendmentBody());
     }
+
+    /** @noinspection PhpMethodNamingConventionInspection */
 
     /**
      * @covers \Dkarlovi\Dockerfile\Statement\Comment::isAmendableWith

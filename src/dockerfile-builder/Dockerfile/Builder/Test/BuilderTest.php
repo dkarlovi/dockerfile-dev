@@ -23,6 +23,8 @@ use PHPUnit\Framework\TestCase;
  */
 class BuilderTest extends TestCase
 {
+    /** @noinspection PhpMethodNamingConventionInspection */
+
     /**
      * @dataProvider getFixtures
      *

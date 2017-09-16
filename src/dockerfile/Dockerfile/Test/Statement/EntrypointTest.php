@@ -56,6 +56,8 @@ class EntrypointTest extends TestCase
         static::assertEquals($fixture, $entrypoint->dump());
     }
 
+    /** @noinspection PhpMethodNamingConventionInspection */
+
     /**
      * @covers \Dkarlovi\Dockerfile\Statement\Entrypoint::build
      */
@@ -66,6 +68,8 @@ class EntrypointTest extends TestCase
 
         Entrypoint::build([]);
     }
+
+    /** @noinspection PhpMethodNamingConventionInspection */
 
     /**
      * @covers \Dkarlovi\Dockerfile\Statement\Entrypoint::getIntent

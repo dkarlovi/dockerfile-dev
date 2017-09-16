@@ -22,6 +22,7 @@ $autoLoaders = [
 foreach ($autoLoaders as $autoLoader) {
     if (true === \file_exists($autoLoader)) {
         /* @noinspection PhpIncludeInspection */
+        /* @noinspection UsingInclusionReturnValueInspection */
         return include $autoLoader;
     }
 }
