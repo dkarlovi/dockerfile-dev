@@ -30,15 +30,8 @@ trait AmendableCollectionTrait
     public function amendFirstBy(Amendment $amendment): void
     {
         $collection = $this->getAmendableCollection();
-        foreach ($collection as $amendable) {
-            if (true === $amendable->isApplicableTo($amendment)) {
-                $amendable->amendBy($amendment);
 
-                return;
-            }
-        }
-
-        throw new InvalidArgumentException('No amendable collection item to amend first found');
+        $this->amend($amendment, $collection);
     }
 
     /**
@@ -48,11 +41,31 @@ trait AmendableCollectionTrait
      */
     public function amendLastBy(Amendment $amendment): void
     {
-        // TODO: Implement amendLastBy() method.
+        $collection = $this->getAmendableCollection();
+        \rsort($collection);
+
+        $this->amend($amendment, $collection);
     }
 
     /**
      * @return Amendment[]
      */
     abstract protected function getAmendableCollection(): array;
+
+    /**
+     * @param Amendment   $amendment
+     * @param Amendment[] $collection
+     */
+    private function amend(Amendment $amendment, $collection): void
+    {
+        foreach ($collection as $amendable) {
+            if (true === $amendable->isApplicableTo($amendment)) {
+                $amendable->amendBy($amendment);
+
+                return;
+            }
+        }
+
+        throw new InvalidArgumentException('No amendable collection item to amend found');
+    }
 }

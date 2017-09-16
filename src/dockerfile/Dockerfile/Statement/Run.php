@@ -13,12 +13,12 @@ declare(strict_types = 1);
 
 namespace Dkarlovi\Dockerfile\Statement;
 
+use Dkarlovi\Dockerfile\Amendable\AmendableCollectionTrait;
 use Dkarlovi\Dockerfile\Amendable\AmendableTrait;
 use Dkarlovi\Dockerfile\AmendableCollection;
 use Dkarlovi\Dockerfile\Amendment;
 use Dkarlovi\Dockerfile\Command;
 use Dkarlovi\Dockerfile\DockerfileCommand;
-use Dkarlovi\Dockerfile\Exception;
 use Dkarlovi\Dockerfile\Statement;
 use Webmozart\Assert\Assert;
 
@@ -28,6 +28,7 @@ use Webmozart\Assert\Assert;
 class Run implements AmendableCollection, Statement
 {
     use AmendableTrait;
+    use AmendableCollectionTrait;
 
     /**
      * @var Command[]
@@ -75,26 +76,6 @@ class Run implements AmendableCollection, Statement
     }
 
     /**
-     * @param Amendment $amendment
-     *
-     * @throws Exception\InvalidArgumentException
-     */
-    public function amendFirstBy(Amendment $amendment): void
-    {
-        // TODO: Implement amendFirstBy() method.
-    }
-
-    /**
-     * @param Amendment $amendment
-     *
-     * @throws Exception\InvalidArgumentException
-     */
-    public function amendLastBy(Amendment $amendment): void
-    {
-        // TODO: Implement amendLastBy() method.
-    }
-
-    /**
      * @return string
      */
     public function getIntent(): string
@@ -116,5 +97,13 @@ class Run implements AmendableCollection, Statement
     protected function amendSelfBy(Amendment $amendment): void
     {
         // TODO: Implement amendSelfBy() method.
+    }
+
+    /**
+     * @return Amendment[]
+     */
+    protected function getAmendableCollection(): array
+    {
+        // TODO: Implement getAmendableCollection() method.
     }
 }
