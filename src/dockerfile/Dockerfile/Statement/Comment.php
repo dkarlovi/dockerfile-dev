@@ -13,6 +13,7 @@ declare(strict_types = 1);
 
 namespace Dkarlovi\Dockerfile\Statement;
 
+use Dkarlovi\Dockerfile\Amendable\AmendableTrait;
 use Dkarlovi\Dockerfile\Amendment;
 use Dkarlovi\Dockerfile\Statement;
 use Webmozart\Assert\Assert;
@@ -22,6 +23,8 @@ use Webmozart\Assert\Assert;
  */
 class Comment implements Statement
 {
+    use AmendableTrait;
+
     /**
      * @var string
      */
@@ -84,16 +87,15 @@ class Comment implements Statement
      *
      * @return bool
      */
-    public function isAmendableWith(Amendment $amendment): bool
+    protected function isSelfAmendableWith(Amendment $amendment): bool
     {
-        return $amendment instanceof static
-            && false !== \mb_strpos($this->content, $amendment->getIntent());
+        return false !== \mb_strpos($this->content, $amendment->getIntent());
     }
 
     /**
      * @param Amendment $amendment
      */
-    public function amendWith(Amendment $amendment): void
+    protected function amendSelfWith(Amendment $amendment): void
     {
         $this->content .= "\n".$amendment->getAmendmentBody();
     }

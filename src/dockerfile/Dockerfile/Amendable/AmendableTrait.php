@@ -34,7 +34,7 @@ trait AmendableTrait
     public function isAmendableWith(Amendment $amendment): bool
     {
         return $amendment instanceof static
-            && $amendment->getIntent() === $this->getIntent();
+            && true === $this->isSelfAmendableWith($amendment);
     }
 
     /**
@@ -55,4 +55,14 @@ trait AmendableTrait
      * @param Amendment $amendment
      */
     abstract protected function amendSelfWith(Amendment $amendment): void;
+
+    /**
+     * @param Amendment $amendment
+     *
+     * @return bool
+     */
+    protected function isSelfAmendableWith(Amendment $amendment): bool
+    {
+        return $amendment->getIntent() === $this->getIntent();
+    }
 }
