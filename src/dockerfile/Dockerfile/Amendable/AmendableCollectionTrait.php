@@ -67,6 +67,6 @@ trait AmendableCollectionTrait
             }
         }
 
-        throw new InvalidArgumentException('No amendable collection item to amend found');
+        throw new InvalidArgumentException('No amendable collection item found');
     }
 }

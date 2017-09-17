@@ -49,7 +49,7 @@ class Stage implements AmendableCollection, Dumpable, Buildable
     public function __construct(From $from, ?array $statements = null, ?string $alias = null)
     {
         $this->from = $from;
-        foreach ($statements as $statement) {
+        foreach ((array) $statements as $statement) {
             $this->addStatement($statement);
         }
         $this->alias = $alias;

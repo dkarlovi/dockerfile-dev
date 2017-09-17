@@ -105,6 +105,7 @@ class CommentTest extends TestCase
      *
      * @uses   \Dkarlovi\Dockerfile\Statement\Comment::__construct
      * @uses   \Dkarlovi\Dockerfile\Statement\Comment::getIntent
+     * @uses   \Dkarlovi\Dockerfile\Statement\Comment::<protected>
      */
     public function testAmendmentIsApplicableIfIntentIsInContent(): void
     {
