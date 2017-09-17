@@ -108,6 +108,6 @@ class DockerfileCommand implements Command
      */
     protected function amendSelfWith(Amendment $amendment): void
     {
-        $this->params = \array_merge($this->params, $amendment->getIntent());
+        $this->params = \array_merge((array) $this->params, $amendment->getIntent());
     }
 }
