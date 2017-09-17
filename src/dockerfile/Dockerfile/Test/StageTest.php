@@ -148,8 +148,34 @@ class StageTest extends TestCase
     {
         return [
             ['FROM foo', 'FROM foo'."\n"],
-            ['FROM foo', 'FROM foo AS bar'."\n", null, 'bar'],
+            ['FROM foo', "FROM foo AS bar\n", null, 'bar'],
+            ['FROM foo', "FROM foo AS bar\ndate\nbla\n", $this->mockDumpableCollection(['date', 'bla']), 'bar'],
         ];
+    }
+
+    /**
+     * @param string[] $dumps
+     *
+     * @return array
+     */
+    private function mockDumpableCollection(array $dumps): array
+    {
+        $collection = [];
+        foreach ($dumps as $dump) {
+            /** @var \PHPUnit_Framework_MockObject_MockObject|Statement $statement */
+            $statement = $this
+                ->getMockBuilder(Statement::class)
+                ->setMethods(['dump'])
+                ->getMockForAbstractClass();
+            $statement
+                ->expects(static::once())
+                ->method('dump')
+                ->willReturn($dump);
+
+            $collection[] = $statement;
+        }
+
+        return $collection;
     }
 
     /**
