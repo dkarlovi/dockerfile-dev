@@ -28,6 +28,7 @@ class RunTest extends TestCase
      * @dataProvider getConstructFixtures
      * @covers       \Dkarlovi\Dockerfile\Statement\Run::__construct
      * @covers       \Dkarlovi\Dockerfile\Statement\Run::dump
+     * @covers       \Dkarlovi\Dockerfile\Statement\Run::<private>
      *
      * @param string[] $commands
      * @param string   $fixture

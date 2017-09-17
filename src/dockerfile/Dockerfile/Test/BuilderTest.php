@@ -28,41 +28,21 @@ class BuilderTest extends TestCase
      * @covers       \Dkarlovi\Dockerfile\DockerfileCommand::build()
      * @covers       \Dkarlovi\Dockerfile\Dockerfile::build()
      * @covers       \Dkarlovi\Dockerfile\Stage::build()
+     * @covers       \Dkarlovi\Dockerfile\Statement\Run::build()
      * @covers       \Dkarlovi\Dockerfile\StatementFactory::build()
      *
-     * @uses         \Dkarlovi\Dockerfile\Statement\Comment::build()
-     * @uses         \Dkarlovi\Dockerfile\Statement\Copy::build()
-     * @uses         \Dkarlovi\Dockerfile\Statement\Entrypoint::build()
-     * @uses         \Dkarlovi\Dockerfile\Statement\Env::build()
-     * @uses         \Dkarlovi\Dockerfile\Statement\From::build()
-     * @uses         \Dkarlovi\Dockerfile\Statement\Healthcheck::build()
-     * @uses         \Dkarlovi\Dockerfile\Statement\Run::build()
-     * @uses         \Dkarlovi\Dockerfile\Statement\Workdir::build()
-     * @uses         \Dkarlovi\Dockerfile\Builder::__construct
-     * @uses         \Dkarlovi\Dockerfile\Dockerfile::__construct
-     * @uses         \Dkarlovi\Dockerfile\Dockerfile::dump
-     * @uses         \Dkarlovi\Dockerfile\Stage::__construct
-     * @uses         \Dkarlovi\Dockerfile\Stage::dump
-     * @uses         \Dkarlovi\Dockerfile\Stage::<private>
-     * @uses         \Dkarlovi\Dockerfile\DockerfileCommand::__construct
-     * @uses         \Dkarlovi\Dockerfile\DockerfileCommand::dump
-     * @uses         \Dkarlovi\Dockerfile\DockerfileCommand::dumpSchema
-     * @uses         \Dkarlovi\Dockerfile\Statement\Comment::__construct
-     * @uses         \Dkarlovi\Dockerfile\Statement\Comment::dump
-     * @uses         \Dkarlovi\Dockerfile\Statement\Copy::__construct
-     * @uses         \Dkarlovi\Dockerfile\Statement\Copy::dump
-     * @uses         \Dkarlovi\Dockerfile\Statement\Entrypoint::__construct
-     * @uses         \Dkarlovi\Dockerfile\Statement\Entrypoint::dump
-     * @uses         \Dkarlovi\Dockerfile\Statement\Env::__construct
-     * @uses         \Dkarlovi\Dockerfile\Statement\Env::dump
-     * @uses         \Dkarlovi\Dockerfile\Statement\From::__construct
-     * @uses         \Dkarlovi\Dockerfile\Statement\From::dump
-     * @uses         \Dkarlovi\Dockerfile\Statement\Healthcheck::__construct
-     * @uses         \Dkarlovi\Dockerfile\Statement\Healthcheck::dump
-     * @uses         \Dkarlovi\Dockerfile\Statement\Run::__construct
-     * @uses         \Dkarlovi\Dockerfile\Statement\Run::dump
-     * @uses         \Dkarlovi\Dockerfile\Statement\Workdir::__construct
-     * @uses         \Dkarlovi\Dockerfile\Statement\Workdir::dump
+     * @uses         \Dkarlovi\Dockerfile\Statement\Comment
+     * @uses         \Dkarlovi\Dockerfile\Statement\Copy
+     * @uses         \Dkarlovi\Dockerfile\Statement\Entrypoint
+     * @uses         \Dkarlovi\Dockerfile\Statement\Env
+     * @uses         \Dkarlovi\Dockerfile\Statement\From
+     * @uses         \Dkarlovi\Dockerfile\Statement\Healthcheck
+     * @uses         \Dkarlovi\Dockerfile\Statement\Run
+     * @uses         \Dkarlovi\Dockerfile\Statement\Workdir
+     * @uses         \Dkarlovi\Dockerfile\Builder
+     * @uses         \Dkarlovi\Dockerfile\Dockerfile
+     * @uses         \Dkarlovi\Dockerfile\Stage
+     * @uses         \Dkarlovi\Dockerfile\DockerfileCommand
      * @dataProvider getFixtures
      *
      * @param string $fixture

@@ -42,7 +42,9 @@ class Run implements AmendableCollection, Statement
      */
     public function __construct(array $commands)
     {
-        $this->commands = $commands;
+        foreach ($commands as $command) {
+            $this->addCommand($command);
+        }
     }
 
     /**
@@ -108,5 +110,13 @@ class Run implements AmendableCollection, Statement
         $collection = $this->commands;
 
         return $collection;
+    }
+
+    /**
+     * @param Command $command
+     */
+    private function addCommand(Command $command): void
+    {
+        $this->commands[] = $command;
     }
 }
