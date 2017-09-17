@@ -13,7 +13,7 @@ declare(strict_types = 1);
 
 namespace Dkarlovi\Dockerfile;
 
-use Dkarlovi\Dockerfile\Exception\InvalidArgumentException;
+use Dkarlovi\Dockerfile\Amendable\AmendableTrait;
 use Webmozart\Assert\Assert;
 
 /**
@@ -21,6 +21,8 @@ use Webmozart\Assert\Assert;
  */
 class DockerfileCommand implements Command
 {
+    use AmendableTrait;
+
     /**
      * @var string
      */
@@ -86,22 +88,26 @@ class DockerfileCommand implements Command
     }
 
     /**
-     * @param Amendment $amendment
-     *
-     * @return bool
+     * @return string
      */
-    public function isAmendableWith(Amendment $amendment): bool
+    public function getIntent(): string
     {
-        // TODO: Implement isAmendableWith() method.
+        return $this->intent;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAmendmentBody()
+    {
+        return $this->params;
     }
 
     /**
      * @param Amendment $amendment
-     *
-     * @throws InvalidArgumentException if not amendable
      */
-    public function amendWith(Amendment $amendment): void
+    protected function amendSelfWith(Amendment $amendment): void
     {
-        // TODO: Implement amendWith() method.
+        $this->params = \array_merge($this->params, $amendment->getIntent());
     }
 }

@@ -16,7 +16,7 @@ namespace Dkarlovi\Dockerfile;
 /**
  * Interface Command.
  */
-interface Command extends Amendable, Buildable, Dumpable
+interface Command extends Amendable, Amendment, Buildable, Dumpable
 {
     /**
      * @return string
