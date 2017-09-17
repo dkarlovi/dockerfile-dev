@@ -13,6 +13,7 @@ declare(strict_types = 1);
 
 namespace Dkarlovi\Dockerfile\Amendable;
 
+use Dkarlovi\Dockerfile\Amendable;
 use Dkarlovi\Dockerfile\Amendment;
 use Dkarlovi\Dockerfile\Exception\InvalidArgumentException;
 
@@ -47,7 +48,7 @@ trait AmendableCollectionTrait
     }
 
     /**
-     * @return Amendment[]
+     * @return Amendable[]
      */
     abstract protected function getAmendableCollection(): array;
 

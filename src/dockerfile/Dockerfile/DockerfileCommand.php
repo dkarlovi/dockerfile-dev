@@ -13,6 +13,7 @@ declare(strict_types = 1);
 
 namespace Dkarlovi\Dockerfile;
 
+use Dkarlovi\Dockerfile\Exception\InvalidArgumentException;
 use Webmozart\Assert\Assert;
 
 /**
@@ -82,5 +83,25 @@ class DockerfileCommand implements Command
         $params = $spec['params'] ?? null;
 
         return new self($spec['intent'], $params);
+    }
+
+    /**
+     * @param Amendment $amendment
+     *
+     * @return bool
+     */
+    public function isAmendableWith(Amendment $amendment): bool
+    {
+        // TODO: Implement isAmendableWith() method.
+    }
+
+    /**
+     * @param Amendment $amendment
+     *
+     * @throws InvalidArgumentException if not amendable
+     */
+    public function amendWith(Amendment $amendment): void
+    {
+        // TODO: Implement amendWith() method.
     }
 }

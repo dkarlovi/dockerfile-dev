@@ -13,6 +13,7 @@ declare(strict_types = 1);
 
 namespace Dkarlovi\Dockerfile\Statement;
 
+use Dkarlovi\Dockerfile\Amendable;
 use Dkarlovi\Dockerfile\Amendable\AmendableCollectionTrait;
 use Dkarlovi\Dockerfile\Amendable\AmendableTrait;
 use Dkarlovi\Dockerfile\AmendableCollection;
@@ -102,11 +103,12 @@ class Run implements AmendableCollection, Statement
     }
 
     /**
-     * @return Amendment[]
+     * @return Amendable[]
      */
     protected function getAmendableCollection(): array
     {
-        /** @var Amendment[] $collection */
+        /** @var Amendable[] $collection */
+        /** @noinspection OneTimeUseVariablesInspection */
         $collection = $this->commands;
 
         return $collection;

@@ -16,6 +16,6 @@ namespace Dkarlovi\Dockerfile;
 /**
  * Interface Statement.
  */
-interface Statement extends Amendment, Buildable, Dumpable
+interface Statement extends Amendable, Amendment, Buildable, Dumpable
 {
 }

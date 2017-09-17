@@ -19,18 +19,6 @@ namespace Dkarlovi\Dockerfile;
 interface Amendment
 {
     /**
-     * @param Amendment $amendment
-     *
-     * @return bool
-     */
-    public function isAmendableWith(Amendment $amendment): bool;
-
-    /**
-     * @param Amendment $amendment
-     */
-    public function amendWith(Amendment $amendment): void;
-
-    /**
      * @return string
      */
     public function getIntent(): string;

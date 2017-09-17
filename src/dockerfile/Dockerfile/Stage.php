@@ -14,14 +14,16 @@ declare(strict_types = 1);
 namespace Dkarlovi\Dockerfile;
 
 use Dkarlovi\Dockerfile\Amendable\AmendableCollectionTrait;
+use Dkarlovi\Dockerfile\Amendable\AmendableTrait;
 use Dkarlovi\Dockerfile\Statement\From;
 use Webmozart\Assert\Assert;
 
 /**
  * Class Stage.
  */
-class Stage implements AmendableCollection, Dumpable, Buildable
+class Stage implements Amendable, AmendableCollection, Amendment, Buildable, Dumpable
 {
+    use AmendableTrait;
     use AmendableCollectionTrait;
 
     /**
@@ -97,11 +99,35 @@ class Stage implements AmendableCollection, Dumpable, Buildable
     }
 
     /**
-     * @return Amendment[]
+     * @return string
+     */
+    public function getIntent(): string
+    {
+        // TODO: Implement getIntent() method.
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAmendmentBody()
+    {
+        // TODO: Implement getAmendmentBody() method.
+    }
+
+    /**
+     * @return Amendable[]
      */
     protected function getAmendableCollection(): array
     {
         return $this->statements;
+    }
+
+    /**
+     * @param Amendment $amendment
+     */
+    protected function amendSelfWith(Amendment $amendment): void
+    {
+        // TODO: Implement amendSelfWith() method.
     }
 
     /**
