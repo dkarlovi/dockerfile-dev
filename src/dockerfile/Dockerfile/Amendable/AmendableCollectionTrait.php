@@ -30,7 +30,7 @@ trait AmendableCollectionTrait
     {
         $collection = $this->getAmendableCollection();
 
-        $this->amend($amendment, $collection);
+        $this->amend($collection, $amendment);
     }
 
     /**
@@ -43,7 +43,7 @@ trait AmendableCollectionTrait
         $collection = $this->getAmendableCollection();
         \rsort($collection);
 
-        $this->amend($amendment, $collection);
+        $this->amend($collection, $amendment);
     }
 
     /**
@@ -52,12 +52,12 @@ trait AmendableCollectionTrait
     abstract protected function getAmendableCollection(): array;
 
     /**
-     * @param Amendment   $amendment
      * @param Amendment[] $collection
+     * @param Amendment   $amendment
      *
      * @throws InvalidArgumentException
      */
-    private function amend(Amendment $amendment, $collection): void
+    private function amend(array $collection, Amendment $amendment): void
     {
         foreach ($collection as $amendable) {
             if (true === $amendable->isAmendableWith($amendment)) {
