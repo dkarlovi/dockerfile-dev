@@ -30,9 +30,9 @@ class Stage implements AmendableCollection, Dumpable, Buildable
     private $from;
 
     /**
-     * @var null|Statement[]
+     * @var Statement[]
      */
-    private $statements;
+    private $statements = [];
 
     /**
      * @var null|string
@@ -49,7 +49,9 @@ class Stage implements AmendableCollection, Dumpable, Buildable
     public function __construct(From $from, ?array $statements = null, ?string $alias = null)
     {
         $this->from = $from;
-        $this->statements = $statements;
+        foreach ($statements as $statement) {
+            $this->addStatement($statement);
+        }
         $this->alias = $alias;
     }
 
@@ -99,7 +101,15 @@ class Stage implements AmendableCollection, Dumpable, Buildable
      */
     protected function getAmendableCollection(): array
     {
-        return (array) $this->statements;
+        return $this->statements;
+    }
+
+    /**
+     * @param Statement $statement
+     */
+    private function addStatement(Statement $statement): void
+    {
+        $this->statements[] = $statement;
     }
 
     /**

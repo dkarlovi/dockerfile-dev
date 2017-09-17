@@ -104,6 +104,9 @@ class Run implements AmendableCollection, Statement
      */
     protected function getAmendableCollection(): array
     {
-        // TODO: Implement getAmendableCollection() method.
+        /** @var Amendment[] $collection */
+        $collection = $this->commands;
+
+        return $collection;
     }
 }

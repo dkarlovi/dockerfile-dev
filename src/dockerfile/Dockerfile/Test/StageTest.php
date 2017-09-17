@@ -102,9 +102,9 @@ class StageTest extends TestCase
     {
         $collection = [];
         foreach ($configs as [$applicable, $amend]) {
-            /** @var \PHPUnit_Framework_MockObject_MockObject|Amendment $amendable */
+            /** @var \PHPUnit_Framework_MockObject_MockObject|Statement $amendable */
             $amendable = $this
-                ->getMockBuilder(Amendment::class)
+                ->getMockBuilder(Statement::class)
                 ->setMethods(['isAmendableWith', 'amendWith'])
                 ->getMockForAbstractClass();
             $amendable
