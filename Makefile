@@ -16,13 +16,13 @@ phpcpd:
 	vendor/bin/phpcpd . --fuzzy --min-lines=3 --min-tokens=50 --exclude=vendor --exclude=src/dockerfile/vendor --exclude=src/dockerfile-builder/vendor
 
 phpunit:
-	vendor/bin/phpunit --testdox
+	vendor/bin/phpunit
 
 phpunit-coverage:
-	vendor/bin/phpunit --testdox --coverage-text --coverage-clover build/logs/clover.xml
+	vendor/bin/phpunit --coverage-text --coverage-clover build/logs/clover.xml
 
 phpstan:
-	vendor/bin/phpstan analyse . --level 7 --configuration phpstan.neon
+	vendor/bin/phpstan analyse . --level max --configuration phpstan.neon
 
 split:
 	bin/subtree-split

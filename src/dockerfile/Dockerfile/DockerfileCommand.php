@@ -78,7 +78,7 @@ class DockerfileCommand implements Command
      *
      * @return DockerfileCommand
      */
-    public static function build(array $spec): DockerfileCommand
+    public static function build(array $spec): self
     {
         Assert::keyExists($spec, 'intent', 'Command requires an "intent" property');
 

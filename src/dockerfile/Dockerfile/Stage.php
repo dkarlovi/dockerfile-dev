@@ -86,6 +86,7 @@ class Stage implements Amendable, AmendableCollection, Amendment, Buildable, Dum
 
         $statements = null;
         if (true === isset($spec['statements'])) {
+            /** @var Statement[] $statements */
             $statements = [];
             /** @var string[] $statement */
             foreach ($spec['statements'] as $statement) {
@@ -93,6 +94,7 @@ class Stage implements Amendable, AmendableCollection, Amendment, Buildable, Dum
             }
         }
 
+        /** @var string $alias */
         $alias = $spec['alias'] ?? null;
 
         return new self($from, $statements, $alias);

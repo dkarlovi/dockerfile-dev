@@ -49,7 +49,7 @@ class Dockerfile implements Dumpable, Buildable
      *
      * @return Dockerfile
      */
-    public static function build(array $spec): Dockerfile
+    public static function build(array $spec): self
     {
         $stages = [];
         foreach ($spec as $alias => $stage) {

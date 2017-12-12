@@ -31,10 +31,10 @@ class StageTest extends TestCase
      * @covers       \Dkarlovi\Dockerfile\Stage::dump
      * @covers       \Dkarlovi\Dockerfile\Stage::<private>
      *
-     * @param string      $image
-     * @param string      $fixture
-     * @param array|null  $statements
-     * @param string|null $alias
+     * @param string           $image
+     * @param string           $fixture
+     * @param Statement[]|null $statements
+     * @param string|null      $alias
      */
     public function testCanConstructAStage(
         string $image,
