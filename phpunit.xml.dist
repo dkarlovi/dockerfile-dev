@@ -19,7 +19,8 @@
         <whitelist processUncoveredFilesFromWhitelist="true">
             <directory>./src/*/Dockerfile</directory>
             <exclude>
-                <directory>./src/*/Test</directory>
+                <directory>./src/*/Dockerfile/Test</directory>
+                <directory>./src/*/Dockerfile/*/Test</directory>
             </exclude>
         </whitelist>
     </filter>
